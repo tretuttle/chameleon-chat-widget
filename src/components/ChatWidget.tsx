@@ -8,16 +8,12 @@ import SidebarChat from './chat/SidebarChat';
 import MinimizedChat from './chat/MinimizedChat';
 
 type ChatState = 'hidden' | 'horizontal' | 'modal' | 'sidebar' | 'minimized';
-type EmbedMode = 'responsive' | 'fixed' | 'fullscreen';
-
 interface ChatWidgetProps {
   initialState?: 'hidden' | 'horizontal' | 'modal' | 'sidebar';
-  embedMode?: EmbedMode;
 }
 
 const ChatWidget: React.FC<ChatWidgetProps> = ({ 
-  initialState = 'horizontal', 
-  embedMode = 'responsive' 
+  initialState = 'horizontal'
 }) => {
   const [chatState, setChatState] = useState<ChatState>(initialState);
   const [inputValue, setInputValue] = useState('');
@@ -237,7 +233,6 @@ const ChatWidget: React.FC<ChatWidgetProps> = ({
         onClose={handleClose}
         onSuggestedAction={handleSuggestedAction}
         onSerialNumberSubmit={handleSerialNumberSubmit}
-        embedMode={embedMode}
       />
     );
   }
