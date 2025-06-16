@@ -11,7 +11,7 @@ type ChatState = 'hidden' | 'horizontal' | 'modal' | 'sidebar' | 'minimized';
 type EmbedMode = 'responsive' | 'fixed' | 'fullscreen';
 
 interface ChatWidgetProps {
-  initialState?: 'horizontal' | 'modal' | 'sidebar';
+  initialState?: 'hidden' | 'horizontal' | 'modal' | 'sidebar';
   embedMode?: EmbedMode;
 }
 
