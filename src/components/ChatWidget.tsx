@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useConversationFlow, FlowType } from '@/hooks/useConversationFlow';
 import { lookupSerialNumber, determineFlowFromModel, ProductInfo } from '@/services/serialNumberService';
 import ChatButton from './chat/ChatButton';
@@ -8,9 +8,18 @@ import SidebarChat from './chat/SidebarChat';
 import MinimizedChat from './chat/MinimizedChat';
 
 type ChatState = 'hidden' | 'horizontal' | 'modal' | 'sidebar' | 'minimized';
+type EmbedMode = 'responsive' | 'fixed' | 'fullscreen';
 
-const ChatWidget = () => {
-  const [chatState, setChatState] = useState<ChatState>('horizontal');
+interface ChatWidgetProps {
+  initialState?: 'horizontal' | 'modal' | 'sidebar';
+  embedMode?: EmbedMode;
+}
+
+const ChatWidget: React.FC<ChatWidgetProps> = ({ 
+  initialState = 'horizontal', 
+  embedMode = 'responsive' 
+}) => {
+  const [chatState, setChatState] = useState<ChatState>(initialState);
   const [inputValue, setInputValue] = useState('');
   const [productInfo, setProductInfo] = useState<ProductInfo | null>(null);
   const [expectingSerialNumber, setExpectingSerialNumber] = useState(false);
@@ -228,6 +237,7 @@ const ChatWidget = () => {
         onClose={handleClose}
         onSuggestedAction={handleSuggestedAction}
         onSerialNumberSubmit={handleSerialNumberSubmit}
+        embedMode={embedMode}
       />
     );
   }

@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amigo Chat Widget - Responsive Iframe Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .demo-section {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .widget-container {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 10px 0;
+        }
+        
+        /* Responsive iframe styles */
+        .responsive-iframe {
+            width: 100%;
+            min-height: 400px;
+            border: none;
+            border-radius: 8px;
+            transition: height 0.3s ease;
+        }
+        
+        /* Fixed size iframe */
+        .fixed-iframe {
+            width: 400px;
+            height: 600px;
+            border: none;
+            border-radius: 8px;
+        }
+        
+        /* Fullscreen iframe */
+        .fullscreen-iframe {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+        }
+        
+        /* Mobile responsive adjustments */
+        @media (max-width: 768px) {
+            .fixed-iframe {
+                width: 100%;
+                height: 500px;
+            }
+        }
+        
+        code {
+            background: #f8f8f8;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+        
+        pre {
+            background: #f8f8f8;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Amigo Chat Widget - Responsive Iframe Examples</h1>
+        
+        <div class="demo-section">
+            <h2>1. Responsive Mode (Recommended)</h2>
+            <p>This mode adapts to the container size and works great for embedding in websites:</p>
+            <div class="widget-container">
+                <iframe 
+                    id="responsive-widget"
+                    class="responsive-iframe"
+                    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=responsive&state=horizontal"
+                    title="Amigo Chat Widget - Responsive">
+                </iframe>
+            </div>
+            <h3>HTML Code:</h3>
+            <pre><code>&lt;iframe 
+    class="responsive-iframe"
+    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=responsive&amp;state=horizontal"
+    style="width: 100%; min-height: 400px; border: none; border-radius: 8px;"
+    title="Amigo Chat Widget"&gt;
+&lt;/iframe&gt;</code></pre>
+        </div>
+
+        <div class="demo-section">
+            <h2>2. Fixed Size Mode</h2>
+            <p>Use this mode when you want a consistent widget size:</p>
+            <div class="widget-container">
+                <iframe 
+                    class="fixed-iframe"
+                    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=fixed&state=horizontal"
+                    title="Amigo Chat Widget - Fixed Size">
+                </iframe>
+            </div>
+            <h3>HTML Code:</h3>
+            <pre><code>&lt;iframe 
+    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=fixed&amp;state=horizontal"
+    style="width: 400px; height: 600px; border: none; border-radius: 8px;"
+    title="Amigo Chat Widget"&gt;
+&lt;/iframe&gt;</code></pre>
+        </div>
+
+        <div class="demo-section">
+            <h2>3. Different Initial States</h2>
+            <p>You can start the widget in different states:</p>
+            
+            <h3>Horizontal State (Default)</h3>
+            <div class="widget-container">
+                <iframe 
+                    class="responsive-iframe"
+                    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=responsive&state=horizontal"
+                    title="Amigo Chat Widget - Horizontal">
+                </iframe>
+            </div>
+
+            <h3>Modal State</h3>
+            <div class="widget-container">
+                <iframe 
+                    class="responsive-iframe"
+                    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=responsive&state=modal"
+                    title="Amigo Chat Widget - Modal">
+                </iframe>
+            </div>
+
+            <h3>Sidebar State</h3>
+            <div class="widget-container">
+                <iframe 
+                    class="responsive-iframe"
+                    src="https://tretuttle.github.io/chameleon-chat-widget/widget?mode=responsive&state=sidebar"
+                    title="Amigo Chat Widget - Sidebar">
+                </iframe>
+            </div>
+        </div>
+
+        <div class="demo-section">
+            <h2>4. JavaScript Auto-Resize Helper</h2>
+            <p>For advanced implementations, you can use JavaScript to automatically resize the iframe:</p>
+            <pre><code>// Auto-resize iframe based on content
+function setupAutoResize(iframeId) {
+    const iframe = document.getElementById(iframeId);
+    
+    window.addEventListener('message', function(event) {
+        if (event.origin !== 'https://tretuttle.github.io') return;
+        
+        if (event.data.type === 'resize-iframe') {
+            const { width, height } = event.data;
+            if (width) iframe.style.width = width + 'px';
+            if (height) iframe.style.height = height + 'px';
+        }
+    });
+}
+
+// Usage
+setupAutoResize('responsive-widget');</code></pre>
+        </div>
+
+        <div class="demo-section">
+            <h2>5. URL Parameters</h2>
+            <table border="1" cellpadding="10" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+                <thead>
+                    <tr style="background: #f8f8f8;">
+                        <th>Parameter</th>
+                        <th>Values</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><code>mode</code></td>
+                        <td>responsive, fixed, fullscreen</td>
+                        <td>Controls how the widget scales and behaves</td>
+                    </tr>
+                    <tr>
+                        <td><code>state</code></td>
+                        <td>horizontal, modal, sidebar</td>
+                        <td>Initial state of the chat widget</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        // Auto-resize functionality
+        function setupAutoResize(iframeId) {
+            const iframe = document.getElementById(iframeId);
+            
+            window.addEventListener('message', function(event) {
+                if (event.origin !== 'https://tretuttle.github.io') return;
+                
+                if (event.data.type === 'widget-ready') {
+                    console.log('Widget ready:', event.data);
+                }
+                
+                if (event.data.type === 'resize-iframe') {
+                    const { width, height } = event.data;
+                    if (width) iframe.style.width = width + 'px';
+                    if (height) iframe.style.height = height + 'px';
+                }
+            });
+        }
+
+        // Setup auto-resize for responsive widget
+        setupAutoResize('responsive-widget');
+    </script>
+</body>
+</html>

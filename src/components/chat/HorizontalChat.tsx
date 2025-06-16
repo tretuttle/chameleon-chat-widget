@@ -11,6 +11,7 @@ interface HorizontalChatProps {
   onClose: () => void;
   onSuggestedAction: (action: string, flowType?: 'general' | 'smartShopper' | 'valueShopper' | 'vista') => void;
   onSerialNumberSubmit: (serialNumber: string) => void;
+  embedMode?: 'responsive' | 'fixed' | 'fullscreen';
 }
 
 const HorizontalChat = ({
@@ -19,11 +20,29 @@ const HorizontalChat = ({
   sendMessage,
   onClose,
   onSuggestedAction,
-  onSerialNumberSubmit
+  onSerialNumberSubmit,
+  embedMode = 'responsive'
 }: HorizontalChatProps) => {
+  const isEmbedded = window.parent !== window;
+  
+  // Determine container classes based on embed mode
+  const getContainerClasses = () => {
+    if (isEmbedded || embedMode === 'responsive') {
+      return "w-full h-full animate-fade-in";
+    }
+    return "fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in";
+  };
+
+  const getWidgetClasses = () => {
+    if (isEmbedded || embedMode === 'responsive') {
+      return "bg-blue-600 rounded-lg shadow-xl w-full h-full min-h-[300px] max-h-[100vh]";
+    }
+    return "bg-blue-600 rounded-lg shadow-xl min-w-[800px] max-w-6xl";
+  };
+
   return (
-    <div className="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50 animate-fade-in">
-      <div className="bg-blue-600 rounded-lg shadow-xl min-w-[800px] max-w-6xl">
+    <div className={getContainerClasses()}>
+      <div className={getWidgetClasses()}>
         {/* Header with close button */}
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center space-x-2">
