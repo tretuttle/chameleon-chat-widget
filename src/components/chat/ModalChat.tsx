@@ -78,7 +78,7 @@ const ModalChat = ({
         <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200 bg-white">
           <div className="flex items-center space-x-3">
             <img 
-              src="/lovable-uploads/b12f4efb-0fa0-4019-ba3b-e5cffcf2ef22.png" 
+              src="/chameleon-chat-widget/lovable-uploads/b12f4efb-0fa0-4019-ba3b-e5cffcf2ef22.png" 
               alt="Amigo Virtual Assistant" 
               className="h-8 object-contain"
             />
@@ -123,7 +123,7 @@ const ModalChat = ({
                 }`}>
                   {message.sender === 'agent' ? (
                     <img 
-                      src="/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" 
+                      src="/chameleon-chat-widget/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" 
                       alt="Amigo" 
                       className="w-6 h-6 object-contain"
                     />
@@ -147,7 +147,7 @@ const ModalChat = ({
               <div className="flex items-start space-x-3 max-w-[80%]">
                 <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center flex-shrink-0">
                   <img 
-                    src="/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" 
+                    src="/chameleon-chat-widget/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" 
                     alt="Amigo" 
                     className="w-6 h-6 object-contain"
                   />

@@ -28,7 +28,7 @@ const HorizontalChat = ({
         <div className="flex items-center justify-between p-3">
           <div className="flex items-center space-x-2">
             <img 
-              src="/lovable-uploads/b12f4efb-0fa0-4019-ba3b-e5cffcf2ef22.png" 
+              src="/chameleon-chat-widget/lovable-uploads/b12f4efb-0fa0-4019-ba3b-e5cffcf2ef22.png" 
               alt="Amigo Virtual Assistant" 
               className="h-12 object-contain"
             />

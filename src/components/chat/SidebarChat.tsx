@@ -71,7 +71,7 @@ const SidebarChat = ({
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200 flex-shrink-0 bg-slate-500">
         <div className="flex items-center space-x-3">
-          <img src="/lovable-uploads/4b9131f2-ab48-4c5a-951f-e24f1806cf8e.png" alt="Amigo Virtual Assistant" className="h-8 object-contain" />
+          <img src="/chameleon-chat-widget/lovable-uploads/4b9131f2-ab48-4c5a-951f-e24f1806cf8e.png" alt="Amigo Virtual Assistant" className="h-8 object-contain" />
         </div>
         <div className="flex space-x-1">
           <Button variant="ghost" size="sm" onClick={onMinimize} className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 h-8 w-8 p-0">
@@ -101,7 +101,7 @@ const SidebarChat = ({
         {conversationHistory.map(message => <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
             <div className={`flex items-start space-x-3 max-w-[85%] ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
               <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${message.sender === 'agent' ? 'bg-white border border-gray-200' : 'bg-gray-600'}`}>
-                {message.sender === 'agent' ? <img src="/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-6 h-6 object-contain" /> : <MessageCircle className="w-4 h-4 text-white" />}
+                {message.sender === 'agent' ? <img src="/chameleon-chat-widget/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-6 h-6 object-contain" /> : <MessageCircle className="w-4 h-4 text-white" />}
               </div>
               <div className={`text-sm p-3 rounded-lg whitespace-pre-wrap ${message.sender === 'user' ? 'bg-blue-600 text-white rounded-br-none' : 'bg-white text-gray-800 border border-gray-100 rounded-bl-none shadow-sm'}`}>
                 {message.text}
@@ -112,7 +112,7 @@ const SidebarChat = ({
         {isLoading && <div className="flex justify-start">
             <div className="flex items-start space-x-3 max-w-[85%]">
               <div className="w-8 h-8 rounded-full bg-white border border-gray-200 flex items-center justify-center flex-shrink-0">
-                <img src="/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-6 h-6 object-contain" />
+                <img src="/chameleon-chat-widget/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-6 h-6 object-contain" />
               </div>
               <div className="bg-white border border-gray-100 rounded-lg rounded-bl-none p-3 shadow-sm">
                 <div className="space-y-2">
@@ -151,7 +151,7 @@ const SidebarChat = ({
             />
             <div className="absolute left-4 top-1/2 transform -translate-y-1/2">
               <div className="w-6 h-6 bg-white border border-gray-200 rounded-full flex items-center justify-center">
-                <img src="/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-4 h-4 object-contain" />
+                <img src="/chameleon-chat-widget/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png" alt="Amigo" className="w-4 h-4 object-contain" />
               </div>
             </div>
             <Button 
