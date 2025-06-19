@@ -3,7 +3,7 @@ import { useChat } from '@/hooks/useChat'; // Your new hook
 import ChatButton from './chat/ChatButton';
 import ModalChat from './chat/ModalChat';
 import SidebarChat from './chat/SidebarChat';
-import HorizontalChat from './chat/HorizontalChat'; // <-- Import HorizontalChat
+import HorizontalChat from './chat/HorizontalChat';
 
 const ChatWidget = () => {
   // All state and actions come from a single, reliable source.
@@ -40,7 +40,6 @@ const ChatWidget = () => {
               onFlowChoice={(text, nextStep) => actions.selectOption(text, nextStep)}
               isTyping={state.isTyping}
               isInputDisabled={isInputDisabled}
-              // onDownloadTranscript and onClearHistory would be new actions in your hook
           />
       );
   }
@@ -59,12 +58,10 @@ const ChatWidget = () => {
               onFlowChoice={(text, nextStep) => actions.selectOption(text, nextStep)}
               isTyping={state.isTyping}
               isInputDisabled={isInputDisabled}
-              // ...
           />
       );
   }
 
-  // *** ADDED THIS BLOCK TO FIX THE BLANK SCREEN ***
   if (state.uiState === 'horizontal') {
     return (
       <HorizontalChat
@@ -73,11 +70,9 @@ const ChatWidget = () => {
         sendMessage={handleSendMessage}
         onClose={actions.closeWidget}
         isProcessing={state.isTyping}
+        // *** THIS IS THE CORRECTED LOGIC ***
         onSuggestedAction={(actionText, flowType) => {
-          // This simulates the user typing the suggested action and sending it.
-          // A more robust solution might involve a new action in useChat.ts
-          actions.setInputValue(actionText);
-          setTimeout(() => actions.sendMessage(), 50);
+          actions.startFlowFromSuggestion(flowType, actionText);
         }}
         onSerialNumberSubmit={(serial) => {
           actions.setInputValue(serial);

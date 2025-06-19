@@ -13,6 +13,44 @@ export const conversationFlow: ConversationFlow = {
       { text: "I have a different customer service need.", nextStep: "contact_agent" } //
     ]
   },
+  start_repair_flow: {
+    id: 'start_repair_flow',
+    botMessage: [
+      "I'd be happy to help you with your Amigo cart repair! For the most accurate troubleshooting steps, I'll need some information about your cart.",
+      "You can provide either:",
+      "  - Serial number (found on a label, usually on the back or bottom of your cart)",
+      "  - Model name (like SmartShopper, ValueShopper, Vista, or Max CR)",
+      "If you're not sure where to find either, just let me know and I can help guide you!"
+    ],
+    userOptions: [
+      { text: "Enter serial number", nextStep: "ask_for_serial_number" },
+      { text: "Enter model name", nextStep: "ask_for_model_name" },
+      { text: "I'm not sure", nextStep: "explain_serial_location" }
+    ]
+  },
+
+  ask_for_serial_number: {
+    id: 'ask_for_serial_number',
+    botMessage: ["Please enter the serial number in the field below."],
+    userOptions: [],
+    allowTextInput: true // This enables the text input field
+  },
+
+  ask_for_model_name: {
+    id: 'ask_for_model_name',
+    botMessage: ["Please enter the model name of your cart (e.g., SmartShopper, Vista)."],
+    userOptions: [],
+    allowTextInput: true
+  },
+
+  explain_serial_location: {
+    id: 'explain_serial_location',
+    botMessage: ["The serial number is found on the steering column underneath the controls. Look for the number starting with AMI followed by 7 numbers."],
+    userOptions: [
+      { text: "I found it", nextStep: "ask_for_serial_number" },
+      { text: "I still can't find it", nextStep: "contact_agent" }
+    ]
+  },
 
   step_for_genamigo_battery_troubleshooting: {
     id: 'step_for_genamigo_battery_troubleshooting',
