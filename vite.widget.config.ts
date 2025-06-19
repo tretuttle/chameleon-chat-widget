@@ -1,11 +1,15 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
+  // Use the cssInjectedByJsPlugin to bundle styles directly into the JS file
+  plugins: [
+    react(),
+    cssInjectedByJsPlugin(),
+  ],
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
@@ -20,29 +24,15 @@ export default defineConfig({
     },
     outDir: 'dist-widget',
     rollupOptions: {
-      external: [],
+      // React should be provided by the host page, not bundled with the widget
+      external: ['react', 'react-dom'],
       output: {
-        globals: {},
-        // Ensure CSS is extracted
-        assetFileNames: (assetInfo) => {
-          if (assetInfo.name === 'style.css') return 'amigo-widget.css';
-          return assetInfo.name || '';
+        // Define the global variables for the externalized libraries
+        globals: {
+          'react': 'React',
+          'react-dom': 'ReactDOM'
         },
       },
     },
-    cssCodeSplit: false,
-    // Ensure all dependencies are bundled
-    commonjsOptions: {
-      include: [/node_modules/],
-    },
-  },
-  define: {
-    'process.env.NODE_ENV': '"production"',
-    'process.env': '{}',
-    global: 'globalThis',
-  },
-  esbuild: {
-    // Fix CSS issues
-    legalComments: 'none',
   },
 });
