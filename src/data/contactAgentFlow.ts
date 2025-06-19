@@ -1,5 +1,4 @@
-import { ConversationFlow } from './conversationFlow';
-
+import type { ConversationFlow } from '@/types';
 // This flow is based on "Contact Agent for Chatbot - DONE.docx"
 export const contactAgentFlow: ConversationFlow = {
   contact_agent: {

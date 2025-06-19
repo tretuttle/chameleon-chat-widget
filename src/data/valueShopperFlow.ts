@@ -1,5 +1,4 @@
-import { ConversationFlow } from './conversationFlow';
-
+import type { ConversationFlow } from '@/types';
 // This flow is based on "ValueShopper TSG for Chatbot - DONE.docx"
 export const valueShopperFlow: ConversationFlow = {
   greeting: {

@@ -1,5 +1,4 @@
-import { ConversationFlow } from './conversationFlow';
-
+import type { ConversationFlow } from '@/types';
 // This flow is based on "End Conversation for Chatbot - DONE.docx"
 export const endConversationFlow: ConversationFlow = {
   end_conversation: {

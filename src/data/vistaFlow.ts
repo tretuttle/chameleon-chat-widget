@@ -1,5 +1,4 @@
-import { ConversationFlow } from './conversationFlow';
-
+import type { ConversationFlow } from '@/types';
 // This flow is based on "Vista TSG for Chatbot - DONE.docx"
 export const vistaFlow: ConversationFlow = {
   greeting: {

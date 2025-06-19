@@ -1,6 +1,6 @@
 import { useReducer, useCallback } from 'react';
-import { conversationFlow as generalAmigoFlow, ConversationStep, ConversationFlow } from '@/data/conversationFlow';
-import { smartShopperFlow } from '@/data/smartShopperFlow';
+import { conversationFlow as generalAmigoFlow } from '@/data/conversationFlow';
+import type { ConversationStep, ConversationFlow } from '@/types';import { smartShopperFlow } from '@/data/smartShopperFlow';
 import { valueShopperFlow } from '@/data/valueShopperFlow';
 import { vistaFlow } from '@/data/vistaFlow';
 import { maxCRFlow } from '@/data/maxCRFlow';
@@ -62,7 +62,7 @@ const flowMap: Record<FlowType, ConversationFlow> = {
 // --- INITIAL STATE ---
 
 const initialState: ChatState = {
-  uiState: 'hidden',
+  uiState: 'horizontal',
   history: [],
   inputValue: '',
   isTyping: false,
