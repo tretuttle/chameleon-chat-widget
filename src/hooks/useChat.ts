@@ -1,6 +1,7 @@
 import { useReducer, useCallback } from 'react';
 import { conversationFlow as generalAmigoFlow } from '@/data/conversationFlow';
-import type { ConversationStep, ConversationFlow } from '@/types';import { smartShopperFlow } from '@/data/smartShopperFlow';
+import type { ConversationStep, ConversationFlow } from '@/types';
+import { smartShopperFlow } from '@/data/smartShopperFlow';
 import { valueShopperFlow } from '@/data/valueShopperFlow';
 import { vistaFlow } from '@/data/vistaFlow';
 import { maxCRFlow } from '@/data/maxCRFlow';
@@ -28,7 +29,8 @@ export interface ChatState {
   inputValue: string;
   isTyping: boolean;
   productInfo: ProductInfo | null;
-  
+  // The active conversation flow, if any
+  // This allows us to track which flow we're currently in and what the current step is  
   activeFlow: ConversationFlow | null;
   currentStepId: string | null;
 }
@@ -45,7 +47,8 @@ export type ChatAction =
   | { type: 'START_SERIAL_LOOKUP' }
   | { type: 'SERIAL_LOOKUP_SUCCESS'; payload: { productInfo: ProductInfo, flowType: FlowType } }
   | { type: 'SERIAL_LOOKUP_FAILURE' }
-  | { type: 'ADD_MESSAGE'; payload: Omit<ConversationMessage, 'id' | 'timestamp'> };
+  | { type: 'ADD_MESSAGE'; payload: Omit<ConversationMessage, 'id' | 'timestamp'> }
+  | { type: 'START_FLOW_FROM_SUGGESTION'; payload: { flowType: FlowType; text: string } };
 
 // --- FLOW MAPPING ---
 
@@ -214,7 +217,7 @@ const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
       };
     }
 
-    case 'SERIAL_LOOKUP_FAILURE':
+    case 'SERIAL_LOOKUP_FAILURE': {
       const failureMessage: ConversationMessage = {
         id: `${Date.now()}`,
         sender: 'agent',
@@ -226,6 +229,37 @@ const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
         isTyping: false,
         history: [...state.history, failureMessage],
       };
+    }
+
+    // *** THIS IS THE NEW CASE BLOCK TO ADD ***
+    case 'START_FLOW_FROM_SUGGESTION': {
+      const { flowType, text } = action.payload;
+      const flow = flowMap[flowType];
+      if (!flow) return state;
+
+      const userMessage: ConversationMessage = {
+        id: `${Date.now()}`,
+        sender: 'user',
+        text: text,
+        timestamp: new Date()
+      };
+      
+      const greetingStep = flow.greeting;
+      const botMessage: ConversationMessage = {
+        id: `${Date.now() + 1}`,
+        sender: 'agent',
+        text: Array.isArray(greetingStep.botMessage) ? greetingStep.botMessage.join('\n') : greetingStep.botMessage,
+        timestamp: new Date()
+      };
+
+      return {
+        ...state,
+        uiState: 'modal', // Switch to modal view
+        activeFlow: flow,
+        currentStepId: 'greeting',
+        history: [...state.history, userMessage, botMessage],
+      };
+    }
 
     default:
       return state;
@@ -273,6 +307,11 @@ export const useChat = () => {
     dispatch({ type: 'SELECT_OPTION', payload: { text, nextStepId } });
   }, []);
   
+  // *** THIS IS THE NEW ACTION FUNCTION ***
+  const startFlowFromSuggestion = useCallback((flowType: FlowType, text: string) => {
+    dispatch({ type: 'START_FLOW_FROM_SUGGESTION', payload: { flowType, text } });
+  }, []);
+
   // Expose state and actions in a structured way
   return {
     state,
@@ -282,7 +321,8 @@ export const useChat = () => {
       setUiState,
       setInputValue,
       sendMessage,
-      selectOption
+      selectOption,
+      startFlowFromSuggestion // <-- EXPOSE THE NEW ACTION
     }
   };
 };

@@ -3,6 +3,7 @@ import { useChat } from '@/hooks/useChat'; // Your new hook
 import ChatButton from './chat/ChatButton';
 import ModalChat from './chat/ModalChat';
 import SidebarChat from './chat/SidebarChat';
+import HorizontalChat from './chat/HorizontalChat'; // <-- Import HorizontalChat
 
 const ChatWidget = () => {
   // All state and actions come from a single, reliable source.
@@ -63,7 +64,28 @@ const ChatWidget = () => {
       );
   }
 
-  // The HorizontalChat component would be handled similarly
+  // *** ADDED THIS BLOCK TO FIX THE BLANK SCREEN ***
+  if (state.uiState === 'horizontal') {
+    return (
+      <HorizontalChat
+        inputValue={state.inputValue}
+        setInputValue={actions.setInputValue}
+        sendMessage={handleSendMessage}
+        onClose={actions.closeWidget}
+        isProcessing={state.isTyping}
+        onSuggestedAction={(actionText, flowType) => {
+          // This simulates the user typing the suggested action and sending it.
+          // A more robust solution might involve a new action in useChat.ts
+          actions.setInputValue(actionText);
+          setTimeout(() => actions.sendMessage(), 50);
+        }}
+        onSerialNumberSubmit={(serial) => {
+          actions.setInputValue(serial);
+          setTimeout(() => actions.sendMessage(), 50);
+        }}
+      />
+    );
+  }
   
   return null;
 };
