@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Minimize2, Send, Download, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ConversationMessage } from '@/hooks/useConversationFlow';
-import { ConversationStep } from '@/data/conversationFlow';
+import type { ConversationMessage, ConversationStep } from '@/types';
 import TypingIndicator from './TypingIndicator';
 
 interface ModalChatProps {
@@ -193,11 +192,9 @@ const ModalChat = ({
                 </div>
               </div>
             </div>
-          ))}
+          ))}          {isTyping && <TypingIndicator />}
 
-          {isTyping && <TypingIndicator />}
-
-          {currentStep && currentStep.userOptions && currentStep.userOptions.length > 0 && onFlowChoice && (
+          {!isTyping && currentStep && currentStep.userOptions && currentStep.userOptions.length > 0 && onFlowChoice && (
             <div className="space-y-3 mt-6">
               <div className="text-xs text-gray-500 bg-yellow-100 p-2 rounded">
                 🔥🔥🔥 DEBUG: Rendering {currentStep.userOptions.length} buttons

@@ -10,7 +10,7 @@ interface HorizontalChatProps {
   setInputValue: (value: string) => void;
   sendMessage: () => void;
   onClose: () => void;
-  onSuggestedAction: (action: string, flowType?: 'general' | 'smartShopper' | 'valueShopper' | 'vista') => void;
+  onSuggestedAction: (action: string, flowType?: 'general' | 'smartShopper' | 'valueShopper' | 'vista' | 'contactAgent') => void;
   onSerialNumberSubmit: (serialNumber: string) => void;
   isProcessing?: boolean;
 }
@@ -85,16 +85,15 @@ const HorizontalChat = ({
                 disabled={isProcessing}
               >
                 I need help with an Amigo cart repair
-              </Button>
-              <Button
-                onClick={() => onSuggestedAction('I need to buy a part for an Amigo cart')}
+              </Button>              <Button
+                onClick={() => onSuggestedAction('I need to buy a part for an Amigo cart', 'contactAgent')}
                 className="bg-blue-700 hover:bg-blue-800 text-white border-0 rounded-md px-4 py-2 text-sm font-medium"
                 disabled={isProcessing}
               >
                 I need to buy a part for an Amigo cart
               </Button>
               <Button
-                onClick={() => onSuggestedAction('I have a different customer service need')}
+                onClick={() => onSuggestedAction('I have a different customer service need', 'contactAgent')}
                 className="bg-blue-700 hover:bg-blue-800 text-white border-0 rounded-md px-4 py-2 text-sm font-medium"
                 disabled={isProcessing}
               >

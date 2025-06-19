@@ -35,12 +35,19 @@ export const conversationFlow: ConversationFlow = {
     userOptions: [],
     allowTextInput: true // This enables the text input field
   },
-
   ask_for_model_name: {
     id: 'ask_for_model_name',
-    botMessage: ["Please enter the model name of your cart (e.g., SmartShopper, Vista)."],
-    userOptions: [],
-    allowTextInput: true
+    botMessage: ["Please select the model of your cart from the options below."],
+    // Remove the text input flag
+    allowTextInput: false,
+    // Add buttons for each model
+    userOptions: [
+      { text: "SmartShopper", nextStep: "start_smartshopper_flow" },
+      { text: "ValueShopper", nextStep: "start_valueshopper_flow" },
+      { text: "Vista", nextStep: "start_vista_flow" },
+      { text: "Max CR", nextStep: "start_maxcr_flow" },
+      { text: "Other", nextStep: "contact_agent" }
+    ]
   },
 
   explain_serial_location: {

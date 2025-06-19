@@ -1,6 +1,19 @@
 import type { ConversationFlow } from '@/types';
 // This flow is based on "Vista TSG for Chatbot - DONE.docx"
 export const vistaFlow: ConversationFlow = {
+  // Entry point from general flow when Vista is selected
+  start_vista_flow: {
+    id: 'start_vista_flow',
+    botMessage: [
+      "Excellent! I'll help you troubleshoot your Vista cart.",
+      "What seems to be the issue with your Vista?"
+    ],
+    userOptions: [
+      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vista_battery_troubleshooting" },
+      { text: "My Vista will not move", nextStep: "step_for_vista_wont_move" },
+      { text: "I have a different customer service need", nextStep: "contact_agent" }
+    ]
+  },
   greeting: {
     id: 'greeting',
     botMessage: [

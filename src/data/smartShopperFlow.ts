@@ -1,6 +1,20 @@
 import type { ConversationFlow } from '@/types';
 // This flow is based on "SmartShopper TSG for Chatbot - DONE.docx"
 export const smartShopperFlow: ConversationFlow = {
+  // Entry point from general flow when SmartShopper is selected
+  start_smartshopper_flow: {
+    id: 'start_smartshopper_flow',
+    botMessage: [
+      "Great! I'll help you troubleshoot your SmartShopper cart.",
+      "What seems to be the issue with your SmartShopper?"
+    ],
+    userOptions: [
+      { text: "My SmartShopper turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_ss_battery_troubleshooting" },
+      { text: "My SmartShopper will not move", nextStep: "step_for_ss_wont_move" },
+      { text: "I have a different customer service need", nextStep: "contact_agent" }
+    ]
+  },
+
   greeting: {
     id: 'greeting',
     botMessage: [

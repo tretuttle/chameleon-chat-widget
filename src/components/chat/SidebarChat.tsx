@@ -3,8 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Expand, Send, Download, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { ConversationMessage } from '@/hooks/useConversationFlow';
-import { ConversationStep } from '@/data/conversationFlow';
+import type { ConversationMessage, ConversationStep } from '@/types';
 import TypingIndicator from './TypingIndicator';
 
 interface SidebarChatProps {
@@ -166,10 +165,9 @@ const SidebarChat = ({
             </div>
           </div>
         ))}
-        
-        {isTyping && <TypingIndicator />}
+          {isTyping && <TypingIndicator />}
 
-        {currentStep && currentStep.userOptions && currentStep.userOptions.length > 0 && (
+        {!isTyping && currentStep && currentStep.userOptions && currentStep.userOptions.length > 0 && (
           <div className="space-y-2">
             <div className="text-xs text-gray-500 bg-yellow-100 p-2 rounded">
               🔥🔥🔥 DEBUG: Rendering {currentStep.userOptions.length} buttons

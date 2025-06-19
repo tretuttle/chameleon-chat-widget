@@ -1,6 +1,20 @@
 import type { ConversationFlow } from '@/types';
 // This flow is based on "ValueShopper TSG for Chatbot - DONE.docx"
 export const valueShopperFlow: ConversationFlow = {
+  // Entry point from general flow when ValueShopper is selected
+  start_valueshopper_flow: {
+    id: 'start_valueshopper_flow',
+    botMessage: [
+      "Perfect! I'll help you troubleshoot your ValueShopper cart.",
+      "What seems to be the issue with your ValueShopper?"
+    ],
+    userOptions: [
+      { text: "My ValueShopper turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vs_battery_troubleshooting" },
+      { text: "My ValueShopper will not move", nextStep: "step_for_vs_wont_move" },
+      { text: "I have a different customer service need", nextStep: "contact_agent" }
+    ]
+  },
+
   greeting: {
     id: 'greeting',
     botMessage: [

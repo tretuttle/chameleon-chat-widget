@@ -12,3 +12,10 @@ export interface ConversationStep {
 export interface ConversationFlow {
     [stepId: string]: ConversationStep;
 }
+
+export interface ConversationMessage {
+  id: string;
+  text: string;
+  sender: 'user' | 'agent';
+  timestamp: Date;
+}

@@ -1,6 +1,21 @@
 import type { ConversationFlow } from '@/types';
 // This flow is based on "Max CR TSG for Chatbot - DONE.docx"
 export const maxCRFlow: ConversationFlow = {
+  // Entry point from general flow when Max CR is selected
+  start_maxcr_flow: {
+    id: 'start_maxcr_flow',
+    botMessage: [
+      "Great choice! I'll help you troubleshoot your Max CR cart.",
+      "What seems to be the issue with your Max CR?"
+    ],
+    userOptions: [
+      { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_max_cr_battery_troubleshooting" },
+      { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move" },
+      { text: "My Max CR remote won't pair", nextStep: "step_for_max_cr_remote_pairing" },
+      { text: "I have a different customer service need", nextStep: "contact_agent" }
+    ]
+  },
+
   greeting: {
     id: 'greeting',
     botMessage: [
