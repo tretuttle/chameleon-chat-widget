@@ -9,9 +9,9 @@ export const maxCRFlow: ConversationFlow = {
       "What seems to be the issue with your Max CR?"
     ],
     userOptions: [
-      { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_max_cr_battery_troubleshooting" },
-      { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move" },
-      { text: "My Max CR remote won't pair", nextStep: "step_for_max_cr_remote_pairing" },
+      { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_max_cr_battery_troubleshooting_info" },
+      { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move_info" },
+      { text: "My Max CR remote won't pair", nextStep: "step_for_max_cr_remote_pairing_info" },
       { text: "I have a different customer service need", nextStep: "contact_agent" }
     ]
   },
@@ -19,40 +19,73 @@ export const maxCRFlow: ConversationFlow = {
   greeting: {
     id: 'greeting',
     botMessage: [
-      "Hello, this is the bot.", //
-      "What seems to be the issue?" //
+      "Hello, this is the bot.",
+      "What seems to be the issue?"
     ],
     userOptions: [
-      { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge.", nextStep: "step_for_max_cr_battery_troubleshooting" }, //
-      { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move" }, //
-      { text: "My Max CR remote won’t pair", nextStep: "step_for_max_cr_remote_pairing" }, //
-      { text: "I have a different customer service need.", nextStep: "contact_agent" } //
+      { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge.", nextStep: "step_for_max_cr_battery_troubleshooting_info" },
+      { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move_info" },
+      { text: "My Max CR remote won’t pair", nextStep: "step_for_max_cr_remote_pairing_info" },
+      { text: "I have a different customer service need.", nextStep: "contact_agent" }
     ]
   },
 
-  step_for_max_cr_battery_troubleshooting: {
-    id: 'step_for_max_cr_battery_troubleshooting',
-    botMessage: [ "First, connect the AC cord to the wall outlet. Does the battery display on the throttle enclosure flash for 10-30 seconds before going solid?" ], //
+  // Battery troubleshooting split into info/question
+  step_for_max_cr_battery_troubleshooting_info: {
+    id: 'step_for_max_cr_battery_troubleshooting_info',
+    botMessage: [
+      "First, connect the AC cord to the wall outlet."
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "measure_battery_voltage_1" }, //
+      { text: "Continue", nextStep: "step_for_max_cr_battery_troubleshooting_question" }
+    ]
+  },
+  step_for_max_cr_battery_troubleshooting_question: {
+    id: 'step_for_max_cr_battery_troubleshooting_question',
+    botMessage: [
+      "Does the battery display on the throttle enclosure flash for 10-30 seconds before going solid?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "measure_battery_voltage_1_info" },
       { text: "No", nextStep: "ac_cord_illumination" }
     ]
   },
 
-  measure_battery_voltage_1: { // Renamed to avoid conflicts
-    id: 'measure_battery_voltage_1',
-    botMessage: [ "Disconnect the AC cord from the wall outlet and measure and record the voltage on the battery. Then connect the AC cord into the wall outlet and let the batteries charge for two minutes. After they have charged, measure the battery voltage. Has it increased to a minimum of 25 volts?" ],
+  // Measure battery voltage split
+  measure_battery_voltage_1_info: {
+    id: 'measure_battery_voltage_1_info',
+    botMessage: [
+      "Disconnect the AC cord from the wall outlet and measure and record the voltage on the battery. Then connect the AC cord into the wall outlet and let the batteries charge for two minutes. After they have charged, measure the battery voltage."
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "replace_battery_1" }, // Renamed
-      { text: "No", nextStep: "replace_battery_charger_1" } // Renamed
+      { text: "Continue", nextStep: "measure_battery_voltage_1_question" }
+    ]
+  },
+  measure_battery_voltage_1_question: {
+    id: 'measure_battery_voltage_1_question',
+    botMessage: [
+      "Has it increased to a minimum of 25 volts?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "replace_battery_1_info" },
+      { text: "No", nextStep: "replace_battery_charger_1_info" }
     ]
   },
 
-  replace_battery_charger_1: { // Renamed
-    id: 'replace_battery_charger_1',
+  // Replace battery charger split
+  replace_battery_charger_1_info: {
+    id: 'replace_battery_charger_1_info',
     botMessage: [
-      "The battery charger is not outputting the proper Dc voltage, and it will need to be replaced. Replace the battery charger with P/N 12499.22-Charger for AGM or P/N 12499.23-Charger for Lithium.", //
-      "Do you need to order parts?" //
+      "The battery charger is not outputting the proper DC voltage, and it will need to be replaced. Replace the battery charger with P/N 12499.22-Charger for AGM or P/N 12499.23-Charger for Lithium."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_battery_charger_1_order" }
+    ]
+  },
+  replace_battery_charger_1_order: {
+    id: 'replace_battery_charger_1_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -60,11 +93,20 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  replace_battery_1: { // Renamed
-    id: 'replace_battery_1',
+  // Replace battery split
+  replace_battery_1_info: {
+    id: 'replace_battery_1_info',
     botMessage: [
-      "The charger is operating properly. The battery/batteries have reached a state where they can no longer hold a charge and should be replaced.", //
-      "Do you need to order parts?" //
+      "The charger is operating properly. The battery/batteries have reached a state where they can no longer hold a charge and should be replaced."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_battery_1_order" }
+    ]
+  },
+  replace_battery_1_order: {
+    id: 'replace_battery_1_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -74,18 +116,29 @@ export const maxCRFlow: ConversationFlow = {
 
   ac_cord_illumination: {
     id: 'ac_cord_illumination',
-    botMessage: [ "Does the AC cord end illuminate?" ], //
+    botMessage: [
+      "Does the AC cord end illuminate?"
+    ],
     userOptions: [
       { text: "Yes", nextStep: "charger_troubleshooting" },
-      { text: "No", nextStep: "wall_outlet" }
+      { text: "No", nextStep: "wall_outlet_info" }
     ]
   },
 
-  wall_outlet: {
-    id: 'wall_outlet',
+  // Wall outlet split
+  wall_outlet_info: {
+    id: 'wall_outlet_info',
     botMessage: [
-      "Check to see if the wall outlet is working. If the wall outlet is working, replace the AC cord.", //
-      "Do you need to order parts?" //
+      "Check to see if the wall outlet is working. If the wall outlet is working, replace the AC cord."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "wall_outlet_order" }
+    ]
+  },
+  wall_outlet_order: {
+    id: 'wall_outlet_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -96,20 +149,29 @@ export const maxCRFlow: ConversationFlow = {
   charger_troubleshooting: {
     id: 'charger_troubleshooting',
     botMessage: [
-      "This indicates the charger is not turning on. Use the following steps to determine why it will not turn on.", //
-      "Check the 13084-IEC Receptacle for continuity." //
+      "This indicates the charger is not turning on. Use the following steps to determine why it will not turn on.",
+      "Check the 13084-IEC Receptacle for continuity."
     ],
     userOptions: [
-      { text: "Yes continuity", nextStep: "measure_battery_voltage_2" }, // Renamed
-      { text: "No continuity", nextStep: "replace_receptacle" }
+      { text: "Yes continuity", nextStep: "measure_battery_voltage_2" },
+      { text: "No continuity", nextStep: "replace_receptacle_info" }
     ]
   },
 
-  replace_receptacle: {
-    id: 'replace_receptacle',
+  // Replace receptacle split
+  replace_receptacle_info: {
+    id: 'replace_receptacle_info',
     botMessage: [
-      "You need to replace the 13084-IEC Receptacle.", //
-      "Do you need to order parts?" //
+      "You need to replace the 13084-IEC Receptacle."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_receptacle_order" }
+    ]
+  },
+  replace_receptacle_order: {
+    id: 'replace_receptacle_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -117,20 +179,31 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  measure_battery_voltage_2: { // Renamed
+  measure_battery_voltage_2: {
     id: 'measure_battery_voltage_2',
-    botMessage: [ "If you have AGM batteries, measure the voltage on both batteries in the series; they must have a minimum combined voltage of 16-volts. If you have a single lithium battery, it must have a minimum voltage of 21-volts." ], //
+    botMessage: [
+      "If you have AGM batteries, measure the voltage on both batteries in the series; they must have a minimum combined voltage of 16-volts. If you have a single lithium battery, it must have a minimum voltage of 21-volts."
+    ],
     userOptions: [
-      { text: "Batteries under voltage", nextStep: "replace_fuse_1" }, // Renamed
+      { text: "Batteries under voltage", nextStep: "replace_fuse_1_info" },
       { text: "Batteries have minimum required voltage", nextStep: "remove_fuse_check_continuity" }
     ]
   },
 
-  replace_fuse_1: { // Renamed
-    id: 'replace_fuse_1',
+  // Replace fuse 1 split
+  replace_fuse_1_info: {
+    id: 'replace_fuse_1_info',
     botMessage: [
-      "Replace the fuse with a 25A 250V replacement.", //
-      "Do you need to order parts?" //
+      "Replace the fuse with a 25A 250V replacement."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_fuse_1_order" }
+    ]
+  },
+  replace_fuse_1_order: {
+    id: 'replace_fuse_1_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -140,18 +213,29 @@ export const maxCRFlow: ConversationFlow = {
 
   remove_fuse_check_continuity: {
     id: 'remove_fuse_check_continuity',
-    botMessage: [ "Remove the fuse and check continuity." ], //
+    botMessage: [
+      "Remove the fuse and check continuity."
+    ],
     userOptions: [
-      { text: "Yes continuity", nextStep: "replace_battery_charger_2" }, // Renamed
-      { text: "No continuity", nextStep: "replace_fuse_2" } // Renamed
+      { text: "Yes continuity", nextStep: "replace_battery_charger_2_info" },
+      { text: "No continuity", nextStep: "replace_fuse_2_info" }
     ]
   },
 
-  replace_battery_charger_2: { // Renamed
-    id: 'replace_battery_charger_2',
+  // Replace battery charger 2 split
+  replace_battery_charger_2_info: {
+    id: 'replace_battery_charger_2_info',
     botMessage: [
-      "Replace the 12499.21-battery charger if the batteries are AGM. Replace the 12499.22-battery charger if battery is lithium.", //
-      "Do you need to order parts?" //
+      "Replace the 12499.21 battery charger if the batteries are AGM. Replace the 12499.22 battery charger if the battery is lithium."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_battery_charger_2_order" }
+    ]
+  },
+  replace_battery_charger_2_order: {
+    id: 'replace_battery_charger_2_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -159,11 +243,20 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  replace_fuse_2: { // Renamed
-    id: 'replace_fuse_2',
+  // Replace fuse 2 split
+  replace_fuse_2_info: {
+    id: 'replace_fuse_2_info',
     botMessage: [
-      "Replace the fuse with a 25A 250V replacement.", //
-      "Do you need to order parts?" //
+      "Replace the fuse with a 25A 250V replacement."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_fuse_2_order" }
+    ]
+  },
+  replace_fuse_2_order: {
+    id: 'replace_fuse_2_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -171,62 +264,104 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  step_for_max_cr_wont_move: {
-    id: 'step_for_max_cr_wont_move',
+  // Move issue split
+  step_for_max_cr_wont_move_info: {
+    id: 'step_for_max_cr_wont_move_info',
     botMessage: [
-      "First, turn the Max CR key on.", //
-      "Does the battery display or diagnostic code window on the throttle enclosure illuminate when the key is turned on?" //
+      "First, turn the Max CR key on."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "step_for_max_cr_wont_move_question" }
+    ]
+  },
+  step_for_max_cr_wont_move_question: {
+    id: 'step_for_max_cr_wont_move_question',
+    botMessage: [
+      "Does the battery display or diagnostic code window on the throttle enclosure illuminate when the key is turned on?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "battery_display" },
-      { text: "No", nextStep: "test_battery_voltage" }
+      { text: "No", nextStep: "test_battery_voltage_info" }
     ]
   },
 
   battery_display: {
     id: 'battery_display',
-    botMessage: [ "Is the battery display flashing rapidly?" ], //
+    botMessage: [
+      "Is the battery display flashing rapidly?"
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "belly_switch" },
+      { text: "Yes", nextStep: "belly_switch_info" },
       { text: "No", nextStep: "numeral_2" }
     ]
   },
 
-  belly_switch: {
-    id: 'belly_switch',
+  // Belly switch split
+  belly_switch_info: {
+    id: 'belly_switch_info',
     botMessage: [
-      "Is the belly switch pushed in? Rotate the switch clockwise a quarter turn to release it. If this does not resolve the problem, check to make sure the 13147.20-Belly Switch asm is connected to the 13059-Breakout PCB.", //
-      "Did either of these two procedures clear the rapid flashing?" //
+      "Is the belly switch pushed in? Rotate the switch clockwise a quarter turn to release it. If this does not resolve the problem, check to make sure the 13147.20-Belly Switch asm is connected to the 13059-Breakout PCB."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "belly_switch_question" }
+    ]
+  },
+  belly_switch_question: {
+    id: 'belly_switch_question',
+    botMessage: [
+      "Did either of these two procedures clear the rapid flashing?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "problem_resolved" },
-      { text: "No", nextStep: "disconnect_belly_switch" }
+      { text: "No", nextStep: "disconnect_belly_switch_info" }
     ]
   },
 
   problem_resolved: {
     id: 'problem_resolved',
-    botMessage: [ "Your problem has been resolved." ], //
-    userOptions: [ { text: "Continue", nextStep: "end_conversation" } ]
-  },
-
-  disconnect_belly_switch: {
-    id: 'disconnect_belly_switch',
     botMessage: [
-      "Disconnect the 13147.20-Belly Switch asm from the 13059-Breakout PCB. Using a wire jumper, jumper across the two pins where you just disconnected the Belly Switch asm.", //
-      "Did this clear the rapid flashing?" //
+      "Your problem has been resolved."
     ],
     userOptions: [
-      { text: "Yes", nextStep: "replace_belly_switch" },
-      { text: "No", nextStep: "replace_pcb" }
+      { text: "Continue", nextStep: "end_conversation" }
     ]
   },
 
-  replace_belly_switch: {
-    id: 'replace_belly_switch',
+  // Disconnect belly switch split
+  disconnect_belly_switch_info: {
+    id: 'disconnect_belly_switch_info',
     botMessage: [
-      "Replace the 13147.20-Belly Switch Asm.", //
-      "Do you need to order parts?" //
+      "Disconnect the 13147.20-Belly Switch asm from the 13059-Breakout PCB. Using a wire jumper, jumper across the two pins where you just disconnected the Belly Switch asm."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "disconnect_belly_switch_question" }
+    ]
+  },
+  disconnect_belly_switch_question: {
+    id: 'disconnect_belly_switch_question',
+    botMessage: [
+      "Did this clear the rapid flashing?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "replace_belly_switch_info" },
+      { text: "No", nextStep: "replace_pcb_info" }
+    ]
+  },
+
+  // Replace belly switch split
+  replace_belly_switch_info: {
+    id: 'replace_belly_switch_info',
+    botMessage: [
+      "Replace the 13147.20-Belly Switch Asm."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_belly_switch_order" }
+    ]
+  },
+  replace_belly_switch_order: {
+    id: 'replace_belly_switch_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -234,11 +369,20 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  replace_pcb: {
-    id: 'replace_pcb',
+  // Replace PCB split
+  replace_pcb_info: {
+    id: 'replace_pcb_info',
     botMessage: [
-      "Replace the 13059-Breakout PCB.", //
-      "Do you need to order parts?" //
+      "Replace the 13059-Breakout PCB."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_pcb_order" }
+    ]
+  },
+  replace_pcb_order: {
+    id: 'replace_pcb_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -248,27 +392,40 @@ export const maxCRFlow: ConversationFlow = {
 
   numeral_2: {
     id: 'numeral_2',
-    botMessage: [ "Is the numeral “2” illuminated in the diagnostic window?" ], //
+    botMessage: [
+      "Is the numeral “2” illuminated in the diagnostic window?"
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "brake_circuit" },
+      { text: "Yes", nextStep: "brake_circuit_info" },
       { text: "No", nextStep: "diagnostic_code_guide" }
     ]
   },
-  
+
   diagnostic_code_guide: {
     id: 'diagnostic_code_guide',
-    botMessage: ["Use the Amigo Diagnostic Code Guide to review the next steps to take to replace the component causing the diagnostic code."],
+    botMessage: [
+      "Use the Amigo Diagnostic Code Guide to review the next steps to take to replace the component causing the diagnostic code."
+    ],
     userOptions: [
-        { text: "Continue", nextStep: "end_conversation"}
+      { text: "Continue", nextStep: "end_conversation" }
     ]
   },
 
-  brake_circuit: {
-    id: 'brake_circuit',
+  // Brake circuit split
+  brake_circuit_info: {
+    id: 'brake_circuit_info',
     botMessage: [
-      "This indicates the brake circuit is open. Turn the key off, check to make sure the freewheel lever in front of the Max CR is in the Normal position, and turn the key back on.", //
-      "If the \"2\" code is still illuminated, check the continuity on the brake wiring. If the wires are good, replace the 13077-Brake Wire Harness.", //
-      "Do you need to order parts?" //
+      "This indicates the brake circuit is open. Turn the key off, check to make sure the freewheel lever in front of the Max CR is in the Normal position, and turn the key back on.",
+      "If the \"2\" code is still illuminated, check the continuity on the brake wiring. If the wires are good, replace the 13077-Brake Wire Harness."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "brake_circuit_order" }
+    ]
+  },
+  brake_circuit_order: {
+    id: 'brake_circuit_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -276,54 +433,75 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  test_battery_voltage: {
-    id: 'test_battery_voltage',
-    botMessage: [ "Remove the top to the power box and test the battery voltage at the controller. Is the battery voltage greater than 21 volts?" ], //
+  // Test battery voltage split
+  test_battery_voltage_info: {
+    id: 'test_battery_voltage_info',
+    botMessage: [
+      "Remove the top to the power box and test the battery voltage at the controller."
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "wiring_connections" },
-      { text: "No", nextStep: "recharge_batteries" }
+      { text: "Continue", nextStep: "test_battery_voltage_question" }
     ]
   },
-  
-  recharge_batteries: {
-    id: 'recharge_batteries',
+  test_battery_voltage_question: {
+    id: 'test_battery_voltage_question',
     botMessage: [
-      "Recharge the battery/batteries, allowing them to go through a completed charge cycle.", //
-      "If the cart still has no power, you will need to replace the 12402-Battery (Lithium) or 12947-Batteries (AGM Type).",
+      "Is the battery voltage greater than 21 volts?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "wiring_connections_info" },
+      { text: "No", nextStep: "recharge_batteries_info" }
+    ]
+  },
+
+  // Recharge batteries split
+  recharge_batteries_info: {
+    id: 'recharge_batteries_info',
+    botMessage: [
+      "Recharge the battery/batteries, allowing them to go through a completed charge cycle.",
+      "If the cart still has no power, you will need to replace the 12402-Battery (Lithium) or 12947-Batteries (AGM Type)."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "recharge_batteries_question" }
+    ]
+  },
+  recharge_batteries_question: {
+    id: 'recharge_batteries_question',
+    botMessage: [
       "Is there continuity?"
     ],
     userOptions: [
-      { text: "Yes continuity", nextStep: "measure_voltage_3" }, // Renamed
-      { text: "No power", nextStep: "replace_battery_2" } // Renamed
+      { text: "Yes continuity", nextStep: "measure_voltage_3" },
+      { text: "No power", nextStep: "replace_battery_2" }
     ]
   },
 
-  replace_battery_2: { // Renamed
-    id: 'replace_battery_2',
-    botMessage: [ "Do you need to order parts?" ],
-    userOptions: [
-      { text: "Yes", nextStep: "order_parts" },
-      { text: "No", nextStep: "end_conversation" }
-    ]
-  },
-  
-  measure_voltage_3: { // Renamed
+  measure_voltage_3: {
     id: 'measure_voltage_3',
     botMessage: [
-      "If you have AGM batteries, measure the voltage on both batteries in series; they must have a minimum combined voltage of 16 volts.", //
-      "If you have a single lithium battery it must have a minimum voltage of 21 volts." //
+      "If you have AGM batteries, measure the voltage on both batteries in series; they must have a minimum combined voltage of 16 volts.",
+      "If you have a single lithium battery it must have a minimum voltage of 21 volts."
     ],
     userOptions: [
-      { text: "Batteries under voltage", nextStep: "replace_batteries_3" }, // Renamed
+      { text: "Batteries under voltage", nextStep: "replace_batteries_3_info" },
       { text: "Batteries have minimum required voltage", nextStep: "check_leds" }
     ]
   },
 
-  replace_batteries_3: { // Renamed
-    id: 'replace_batteries_3',
+  // Replace batteries 3 split
+  replace_batteries_3_info: {
+    id: 'replace_batteries_3_info',
     botMessage: [
-      "You need to replace the batteries.", //
-      "Do you need to order parts?" //
+      "You need to replace the batteries."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_batteries_3_order" }
+    ]
+  },
+  replace_batteries_3_order: {
+    id: 'replace_batteries_3_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -333,73 +511,49 @@ export const maxCRFlow: ConversationFlow = {
 
   check_leds: {
     id: 'check_leds',
-    botMessage: [ "Check the LEDs on the battery charger. They should be either solid red, red & yellow flashing, or green. If they are, the charger is working." ], //
+    botMessage: [
+      "Check the LEDs on the battery charger. They should be either solid red, red & yellow flashing, or green. If they are, the charger is working."
+    ],
     userOptions: [
       { text: "LEDs illuminate", nextStep: "charge_batteries_replace_if_needed" },
-      { text: "No LEDs illuminate on the battery charger or just the red LED is flashing", nextStep: "remove_fuse_check_continuity_2" } // Renamed
+      { text: "No LEDs illuminate on the battery charger or just the red LED is flashing", nextStep: "remove_fuse_check_continuity_2" }
     ]
   },
 
   charge_batteries_replace_if_needed: {
     id: 'charge_batteries_replace_if_needed',
-    botMessage: [ "Allow the batteries to fully charge. If they do not have enough capacity to run the cart for 8 hours, replace the batteries." ], //
+    botMessage: [
+      "Allow the batteries to fully charge. If they do not have enough capacity to run the cart for 8 hours, replace the batteries."
+    ],
     userOptions: [
       { text: "Continue", nextStep: "end_conversation" }
     ]
   },
 
-  remove_fuse_check_continuity_2: { // Renamed
+  remove_fuse_check_continuity_2: {
     id: 'remove_fuse_check_continuity_2',
-    botMessage: [ "Remove the fuse and check continuity." ],
-    userOptions: [
-      { text: "No continuity", nextStep: "replace_fuse_3" }, // Renamed
-      { text: "Yes continuity", nextStep: "replace_battery_charger_3" } // Renamed
-    ]
-  },
-
-  replace_fuse_3: { // Renamed
-    id: 'replace_fuse_3',
     botMessage: [
-      "Replace the fuse with a 25A 250V replacement.", //
-      "Do you need to order parts?" //
+      "Remove the fuse and check continuity."
     ],
     userOptions: [
-      { text: "Yes", nextStep: "order_parts" },
-      { text: "No", nextStep: "end_conversation" }
+      { text: "No continuity", nextStep: "replace_fuse_3_info" },
+      { text: "Yes continuity", nextStep: "replace_battery_charger_3_info" }
     ]
   },
 
-  replace_battery_charger_3: { // Renamed
-    id: 'replace_battery_charger_3',
+  // Replace fuse 3 split
+  replace_fuse_3_info: {
+    id: 'replace_fuse_3_info',
     botMessage: [
-      "Replace the 12499.21-battery charger if the batteries are AGM. Replace the 12499.22-battery charger if the battery is lithium.", //
-      "Do you need to order parts?" //
+      "Replace the fuse with a 25A 250V replacement."
     ],
     userOptions: [
-      { text: "Yes", nextStep: "order_parts" },
-      { text: "No", nextStep: "end_conversation" }
+      { text: "Continue", nextStep: "replace_fuse_3_order" }
     ]
   },
-
-  wiring_connections: {
-    id: 'wiring_connections',
+  replace_fuse_3_order: {
+    id: 'replace_fuse_3_order',
     botMessage: [
-      "Check to ensure all wiring connections from the handle enclosure, breakout board, and controller are securely connected. Measure the battery voltage at the controller. It should match the battery voltage measured at the battery/batteries.", //
-      "Are wires secure and battery at the controller? Does voltage at the battery/batteries match the voltage at the battery?" //
-    ],
-    userOptions: [
-      { text: "Yes", nextStep: "substitute_parts" },
-      { text: "No", nextStep: "check_circuit_breaker_continuity" }
-    ]
-  },
-
-  substitute_parts: {
-    id: 'substitute_parts',
-    botMessage: [
-      "Substitute the following parts in order until the faulty part is found:",
-      "1. 8969-Handle cable.", //
-      "2. 8223.25-Throttle Asm.", //
-      "3. 12933CR-Controller.", //
       "Do you need to order parts?"
     ],
     userOptions: [
@@ -408,20 +562,20 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  check_circuit_breaker_continuity: {
-    id: 'check_circuit_breaker_continuity',
-    botMessage: [ "Check to make sure there is continuity through the 12661-Circuit Breaker. Is there continuity?" ], //
+  // Replace battery charger 3 split
+  replace_battery_charger_3_info: {
+    id: 'replace_battery_charger_3_info',
+    botMessage: [
+      "Replace the 12499.21-battery charger if the batteries are AGM. Replace the 12499.22-battery charger if the battery is lithium."
+    ],
     userOptions: [
-      { text: "Yes", nextStep: "replace_harness_battery_harness" },
-      { text: "No", nextStep: "replace_circuit_breaker" }
+      { text: "Continue", nextStep: "replace_battery_charger_3_order" }
     ]
   },
-
-  replace_harness_battery_harness: {
-    id: 'replace_harness_battery_harness',
+  replace_battery_charger_3_order: {
+    id: 'replace_battery_charger_3_order',
     botMessage: [
-      "Replace the 11190-Harness (2 pieces) and the 13093-Battery Harness.", //
-      "Do you need to order parts?" //
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -429,11 +583,44 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  replace_circuit_breaker: {
-    id: 'replace_circuit_breaker',
+  // Wiring connections split
+  wiring_connections_info: {
+    id: 'wiring_connections_info',
     botMessage: [
-      "Replace the 12661-Circiut Breaker.", //
-      "Do you need to order parts?" //
+      "Check to ensure all wiring connections from the handle enclosure, breakout board, and controller are securely connected. Measure the battery voltage at the controller. It should match the battery voltage measured at the battery/batteries."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "wiring_connections_question" }
+    ]
+  },
+  wiring_connections_question: {
+    id: 'wiring_connections_question',
+    botMessage: [
+      "Are wires secure and battery at the controller? Does voltage at the battery/batteries match the voltage at the battery?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "substitute_parts_info" },
+      { text: "No", nextStep: "check_circuit_breaker_continuity_info" }
+    ]
+  },
+
+  // Substitute parts split
+  substitute_parts_info: {
+    id: 'substitute_parts_info',
+    botMessage: [
+      "Substitute the following parts in order until the faulty part is found:",
+      "1. 8969-Handle cable.",
+      "2. 8223.25-Throttle Asm.",
+      "3. 12933CR-Controller."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "substitute_parts_order" }
+    ]
+  },
+  substitute_parts_order: {
+    id: 'substitute_parts_order',
+    botMessage: [
+      "Do you need to order parts?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
@@ -441,15 +628,87 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  step_for_max_cr_remote_pairing: {
-    id: 'step_for_max_cr_remote_pairing',
+  // Check circuit breaker split
+  check_circuit_breaker_continuity_info: {
+    id: 'check_circuit_breaker_continuity_info',
     botMessage: [
-      "Attempt the pairing process. Turn the Max CR and the remote on. Press the \"STOP\" button on the remote for 10 seconds. The power button on the remote will flash blue. Press and hold the pairing button on the Max CR until the horn sounds.", //
-      "Does the Max CR now respond to the remote?" //
+      "Check to make sure there is continuity through the 12661-Circuit Breaker."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "check_circuit_breaker_continuity_question" }
+    ]
+  },
+  check_circuit_breaker_continuity_question: {
+    id: 'check_circuit_breaker_continuity_question',
+    botMessage: [
+      "Is there continuity?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "replace_harness_battery_harness_info" },
+      { text: "No", nextStep: "replace_circuit_breaker_info" }
+    ]
+  },
+
+  // Replace harness split
+  replace_harness_battery_harness_info: {
+    id: 'replace_harness_battery_harness_info',
+    botMessage: [
+      "Replace the 11190-Harness (2 pieces) and the 13093-Battery Harness."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_harness_battery_harness_order" }
+    ]
+  },
+  replace_harness_battery_harness_order: {
+    id: 'replace_harness_battery_harness_order',
+    botMessage: [
+      "Do you need to order parts?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "order_parts" },
+      { text: "No", nextStep: "end_conversation" }
+    ]
+  },
+
+  // Replace circuit breaker split
+  replace_circuit_breaker_info: {
+    id: 'replace_circuit_breaker_info',
+    botMessage: [
+      "Replace the 12661-Circuit Breaker."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_circuit_breaker_order" }
+    ]
+  },
+  replace_circuit_breaker_order: {
+    id: 'replace_circuit_breaker_order',
+    botMessage: [
+      "Do you need to order parts?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "order_parts" },
+      { text: "No", nextStep: "end_conversation" }
+    ]
+  },
+
+  // Remote pairing split
+  step_for_max_cr_remote_pairing_info: {
+    id: 'step_for_max_cr_remote_pairing_info',
+    botMessage: [
+      "Attempt the pairing process. Turn the Max CR and the remote on. Press the \"STOP\" button on the remote for 10 seconds. The power button on the remote will flash blue. Press and hold the pairing button on the Max CR until the horn sounds."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "step_for_max_cr_remote_pairing_question" }
+    ]
+  },
+  step_for_max_cr_remote_pairing_question: {
+    id: 'step_for_max_cr_remote_pairing_question',
+    botMessage: [
+      "Does the Max CR now respond to the remote?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "try_3_steps" },
-      { text: "No", nextStep: "press_power_button" }
+      { text: "No", nextStep: "press_power_button_info" }
     ]
   },
 
@@ -469,51 +728,86 @@ export const maxCRFlow: ConversationFlow = {
     ]
   },
 
-  press_power_button: {
-    id: 'press_power_button',
-    botMessage: [ "OK. Press the power button on the remote. Does it illuminate green?" ], //
+  // Press power button split
+  press_power_button_info: {
+    id: 'press_power_button_info',
+    botMessage: [
+      "OK. Press the power button on the remote."
+    ],
     userOptions: [
-      { text: "No", nextStep: "replace_aa_batteries" },
+      { text: "Continue", nextStep: "press_power_button_question" }
+    ]
+  },
+  press_power_button_question: {
+    id: 'press_power_button_question',
+    botMessage: [
+      "Does it illuminate green?"
+    ],
+    userOptions: [
+      { text: "No", nextStep: "replace_aa_batteries_info" },
       { text: "Yes", nextStep: "inspect_wiring" }
     ]
   },
 
   inspect_wiring: {
     id: 'inspect_wiring',
-    botMessage: [ "Inspect all the wiring running between the receiver board and the breakout board. If the wiring is good, first replace the 12344-recevier board, if that doesn't resolve the problem replace the 13059-breakout board." ], //
+    botMessage: [
+      "Inspect all the wiring running between the receiver board and the breakout board. If the wiring is good, first replace the 12344-recevier board, if that doesn't resolve the problem replace the 13059-breakout board."
+    ],
     userOptions: [
       { text: "I need to order parts", nextStep: "order_parts" }
     ]
   },
 
-  replace_aa_batteries: {
-    id: 'replace_aa_batteries',
+  // Replace AA batteries split
+  replace_aa_batteries_info: {
+    id: 'replace_aa_batteries_info',
     botMessage: [
-      "Replace the batteries in the remote with four new lithium AA batteries or recharge the batteries if you have a remote with the rechargeable option.", //
-      "Press the remote power button, does it illuminate green?" //
+      "Replace the batteries in the remote with four new lithium AA batteries or recharge the batteries if you have a remote with the rechargeable option."
     ],
     userOptions: [
-      { text: "Yes", nextStep: "step_for_max_cr_remote_pairing" },
-      { text: "No", nextStep: "replace_remote" }
+      { text: "Continue", nextStep: "replace_aa_batteries_question" }
+    ]
+  },
+  replace_aa_batteries_question: {
+    id: 'replace_aa_batteries_question',
+    botMessage: [
+      "Press the remote power button, does it illuminate green?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "step_for_max_cr_remote_pairing_info" },
+      { text: "No", nextStep: "replace_remote_info" }
     ]
   },
 
-  replace_remote: {
-    id: 'replace_remote',
+  // Replace remote split
+  replace_remote_info: {
+    id: 'replace_remote_info',
     botMessage: [
-      "You need to replace the remote. Do you want to order a new one?" //
+      "You need to replace the remote."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "replace_remote_order" }
+    ]
+  },
+  replace_remote_order: {
+    id: 'replace_remote_order',
+    botMessage: [
+      "Do you want to order a new one?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "order_parts" },
       { text: "No", nextStep: "end_conversation" }
     ]
   },
-  
+
   order_parts: {
     id: 'order_parts',
-    botMessage: [ "I'll connect you with our parts department to help you order the required components. They'll make sure you get exactly what you need for your Max CR!" ],
+    botMessage: [
+      "I'll connect you with our parts department to help you order the required components. They'll make sure you get exactly what you need for your Max CR!"
+    ],
     userOptions: [
-        { text: "Continue", nextStep: "contact_agent" }
+      { text: "Continue", nextStep: "contact_agent" }
     ]
   }
 };

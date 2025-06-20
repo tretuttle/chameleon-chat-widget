@@ -1,4 +1,3 @@
-
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
@@ -9,6 +8,7 @@ export default defineConfig(({ mode }) => ({
   server: {
     host: "::",
     port: 8080,
+    strictPort: true, // Fail if 8080 is occupied to prevent stale-server confusion by auto-incrementing to a new port
     proxy: {
       '/api/netsuite': {
         target: 'https://4086366.extforms.netsuite.com',

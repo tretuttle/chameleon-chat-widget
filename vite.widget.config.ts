@@ -34,5 +34,12 @@ export default defineConfig({
         },
       },
     },
+    // Use terser for minification and drop console statements in production
+    minify: 'terser',
+    terserOptions: {
+      compress: {
+        drop_console: true,
+      },
+    },
   },
 });

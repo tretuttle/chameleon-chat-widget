@@ -1,10 +1,10 @@
-
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import ChatWidget from './components/ChatWidget';
 import './index.css';
 import './widget-embed.css';
+import * as logger from './lib/logger';
 
 // Create query client for the widget
 const queryClient = new QueryClient({
@@ -63,9 +63,9 @@ const initWidget = (config: WidgetConfig = {}) => {
       widgetRoot.render(<AmigoWidget />);
     }
     
-    console.log('AmigoWidget initialized successfully');
+    logger.log('AmigoWidget initialized successfully');
   } catch (error) {
-    console.error('Error initializing AmigoWidget:', error);
+    logger.error('Error initializing AmigoWidget:', error);
   }
 };
 
@@ -82,9 +82,9 @@ const destroyWidget = () => {
       container.remove();
     }
     
-    console.log('AmigoWidget destroyed successfully');
+    logger.log('AmigoWidget destroyed successfully');
   } catch (error) {
-    console.error('Error destroying AmigoWidget:', error);
+    logger.error('Error destroying AmigoWidget:', error);
   }
 };
 

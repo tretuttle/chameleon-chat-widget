@@ -1,5 +1,5 @@
-
 import { FlowType } from '@/hooks/useConversationFlow';
+import * as logger from '@/lib/logger';
 
 export interface ProductInfo {
   model: string;
@@ -41,8 +41,6 @@ export const lookupSerialNumber = async (serialNumber: string): Promise<ProductI
       ? `/api/netsuite/app/site/hosting/scriptlet.nl?script=6223&deploy=1&compid=4086366&ns-at=AAEJ7tMQZmDLpO0msvndzhyIbhPPdD7U3fcHROrep1qJ6u8nu-w&snar=${formattedSerialNumber}`
       : `https://api.allorigins.win/get?url=${encodeURIComponent(netsuiteUrl)}`;
     
-    console.log(`Making request to: ${apiUrl}`);
-    
     const response = await fetch(apiUrl, {
       method: 'GET',
       headers: {
@@ -63,8 +61,6 @@ export const lookupSerialNumber = async (serialNumber: string): Promise<ProductI
         data = JSON.parse(proxyResponse.contents);
       }
       
-      console.log('Successfully retrieved data:', data);
-      
       // Extract the required fields from the response
       return {
         model: data.model || '',
@@ -74,12 +70,11 @@ export const lookupSerialNumber = async (serialNumber: string): Promise<ProductI
         itemDescription: data.itemdescription || ''
       };
     } else {
-      console.log(`API returned status: ${response.status}`);
       return null;
     }
     
   } catch (error) {
-    console.error('Error looking up serial number:', error);
+    logger.error('Error looking up serial number:', error);
     throw error;
   }
 };

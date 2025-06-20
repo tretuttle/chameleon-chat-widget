@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef, useState } from 'react';
 import { MessageCircle, X, Minimize2, Send, Download, Trash2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -41,11 +40,6 @@ const ModalChat = ({
   const hasOnlyButtonOptions = currentStep && currentStep.userOptions && currentStep.userOptions.length > 0;
   const [streamingPlaceholder, setStreamingPlaceholder] = useState('');
 
-  // Debug logging for button rendering
-  console.log('🔥🔥🔥 ModalChat - Rendering with currentStep:', currentStep);
-  console.log('🔥🔥🔥 ModalChat - hasOnlyButtonOptions:', hasOnlyButtonOptions);
-  console.log('🔥🔥🔥 ModalChat - onFlowChoice function:', onFlowChoice);
-
   // Update streaming placeholder when typing
   useEffect(() => {
     let interval: NodeJS.Timeout;
@@ -86,18 +80,9 @@ const ModalChat = ({
     }
   };
 
-  // Enhanced button click handler with debugging
   const handleButtonClick = (option: any, index: number) => {
-    console.log('🔥🔥🔥 ModalChat - Button clicked!');
-    console.log('🔥🔥🔥 ModalChat - Option:', option);
-    console.log('🔥🔥🔥 ModalChat - Index:', index);
-    console.log('🔥🔥🔥 ModalChat - onFlowChoice function type:', typeof onFlowChoice);
-    
     if (onFlowChoice) {
-      console.log('🔥🔥🔥 ModalChat - Calling onFlowChoice with:', option.text, option.nextStep);
       onFlowChoice(option.text, option.nextStep);
-    } else {
-      console.error('🔥🔥🔥 ModalChat - onFlowChoice is not defined!');
     }
   };
 
@@ -192,20 +177,18 @@ const ModalChat = ({
                 </div>
               </div>
             </div>
-          ))}          {isTyping && <TypingIndicator />}
+          ))}
+          {isTyping && <TypingIndicator />}
 
           {!isTyping && currentStep && currentStep.userOptions && currentStep.userOptions.length > 0 && onFlowChoice && (
             <div className="space-y-3 mt-6">
-              <div className="text-xs text-gray-500 bg-yellow-100 p-2 rounded">
-                🔥🔥🔥 DEBUG: Rendering {currentStep.userOptions.length} buttons
-              </div>
               {currentStep.userOptions.map((option, index) => (
                 <Button
                   key={index}
                   onClick={() => handleButtonClick(option, index)}
                   className="w-full justify-start text-left h-auto p-4 bg-blue-600 hover:bg-blue-700 text-white border-0 whitespace-normal break-words shadow-md rounded-xl font-medium"
                 >
-                  🔥 {option.text}
+                  {option.text}
                 </Button>
               ))}
             </div>

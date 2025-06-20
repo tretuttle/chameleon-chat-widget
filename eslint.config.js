@@ -2,7 +2,9 @@ import js from "@eslint/js";
 import globals from "globals";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
-import tseslint from "typescript-eslint";
+import tseslint from "@typescript-eslint/eslint-plugin";
+import unicorn from "eslint-plugin-unicorn";
+import noSecrets from "eslint-plugin-no-secrets";
 
 export default tseslint.config(
   { ignores: ["dist"] },
@@ -16,6 +18,8 @@ export default tseslint.config(
     plugins: {
       "react-hooks": reactHooks,
       "react-refresh": reactRefresh,
+      "unicorn": unicorn,
+      "no-secrets": noSecrets,
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
@@ -24,6 +28,11 @@ export default tseslint.config(
         { allowConstantExport: true },
       ],
       "@typescript-eslint/no-unused-vars": "off",
+      "no-console": ["error", { allow: ["warn", "error"] }],
+      "unicorn/string-content": [
+        "error",
+        { patterns: ["DEBUG", "🔥", "yellow debug"] }
+      ],
     },
   }
 );

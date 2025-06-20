@@ -9,7 +9,7 @@ export const vistaFlow: ConversationFlow = {
       "What seems to be the issue with your Vista?"
     ],
     userOptions: [
-      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vista_battery_troubleshooting" },
+      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_vista_batt_led_gauge" },
       { text: "My Vista will not move", nextStep: "step_for_vista_wont_move" },
       { text: "I have a different customer service need", nextStep: "contact_agent" }
     ]
@@ -21,17 +21,26 @@ export const vistaFlow: ConversationFlow = {
       "What seems to be the issue?" //
     ],
     userOptions: [
-      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vista_battery_troubleshooting" },
+      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_vista_batt_led_gauge" },
       { text: "My Vista will not move", nextStep: "step_for_vista_wont_move" },
       { text: "I have a different customer service need.", nextStep: "contact_agent" }
     ]
   },
-  step_for_vista_battery_troubleshooting: {
-    id: 'step_for_vista_battery_troubleshooting',
+  step_vista_batt_led_gauge: {
+    id: 'step_vista_batt_led_gauge',
     botMessage: [
-      "Connect the AC cord to the wall outlet.", //
-      "For the throttle enclosure LED battery gage: does the battery gage on the throttle enclosure flash for 10-30 seconds before going solid?", //
-      "For the throttle enclosure LCD throttle display: does the display show a green rectangle at the bottom with the text \"CHARGING\"?" //
+      "Connect the AC cord to the wall outlet.",
+      "For the throttle enclosure LED battery gage: does the battery gage on the throttle enclosure flash for 10-30 seconds before going solid?"
+    ],
+    userOptions: [
+      { text: "Yes", nextStep: "step_vista_batt_lcd_display" },
+      { text: "No", nextStep: "ac_cord_illuminate" }
+    ]
+  },
+  step_vista_batt_lcd_display: {
+    id: 'step_vista_batt_lcd_display',
+    botMessage: [
+      "For the throttle enclosure LCD throttle display: does the display show a green rectangle at the bottom with the text \"CHARGING\"?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "charge_batteries_measure_voltage" },
@@ -291,8 +300,17 @@ export const vistaFlow: ConversationFlow = {
   check_wiring: {
     id: 'check_wiring',
     botMessage: [
-      "Check to ensure all wiring connections from the handle enclosure, breakout board, and controller are securely connected.", //
-      "Measure the battery voltage at the controller; it should match the battery voltage measured at the battery/batteries. Are the wires secure and battery at the controller? Does voltage at the battery/batteries at the controller match the voltage at the battery?" //
+      "Check to ensure all wiring connections from the handle enclosure, breakout board, and controller are securely connected."
+    ],
+    userOptions: [
+      { text: "Continue", nextStep: "check_voltage_match" }
+    ]
+  },
+  check_voltage_match: {
+    id: 'check_voltage_match',
+    botMessage: [
+      "Measure the battery voltage at the controller; it should match the battery voltage measured at the battery/batteries.",
+      "Does the voltage at the controller match the voltage at the battery/batteries?"
     ],
     userOptions: [
       { text: "Yes", nextStep: "substitute_parts" },
