@@ -1,0 +1,22 @@
+{
+  "install": "npm install",
+  "terminals": [
+    {
+      "name": "Dev Server",
+      "command": "npm run dev"
+    },
+    {
+      "name": "Watch Build - Widget",
+      "command": "npm run build-widget -- --watch"
+    },
+    {
+      "name": "Watch Build",
+      "command": "npm run build -- --watch"
+    }
+  ],
+  "start": "npm run dev",
+  "build": {
+    "context": ".",
+    "dockerfile": "Dockerfile"
+  }
+}
