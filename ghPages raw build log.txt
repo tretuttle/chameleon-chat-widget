@@ -1,0 +1,325 @@
+2025-06-16T12:44:30.7881104Z Current runner version: '2.325.0'
+2025-06-16T12:44:30.7904806Z ##[group]Runner Image Provisioner
+2025-06-16T12:44:30.7905604Z Hosted Compute Agent
+2025-06-16T12:44:30.7906097Z Version: 20250529.345
+2025-06-16T12:44:30.7906906Z Commit: 22237e57af968c281070ffa8ed912c1b754f9a23
+2025-06-16T12:44:30.7907553Z Build Date: 2025-05-29T20:18:30Z
+2025-06-16T12:44:30.7908178Z ##[endgroup]
+2025-06-16T12:44:30.7908678Z ##[group]Operating System
+2025-06-16T12:44:30.7909237Z Ubuntu
+2025-06-16T12:44:30.7909655Z 24.04.2
+2025-06-16T12:44:30.7910171Z LTS
+2025-06-16T12:44:30.7910828Z ##[endgroup]
+2025-06-16T12:44:30.7911432Z ##[group]Runner Image
+2025-06-16T12:44:30.7912077Z Image: ubuntu-24.04
+2025-06-16T12:44:30.7912542Z Version: 20250602.3.0
+2025-06-16T12:44:30.7913513Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20250602.3/images/ubuntu/Ubuntu2404-Readme.md
+2025-06-16T12:44:30.7915109Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20250602.3
+2025-06-16T12:44:30.7916116Z ##[endgroup]
+2025-06-16T12:44:30.7917125Z ##[group]GITHUB_TOKEN Permissions
+2025-06-16T12:44:30.7918880Z Contents: read
+2025-06-16T12:44:30.7919526Z Metadata: read
+2025-06-16T12:44:30.7920021Z Pages: write
+2025-06-16T12:44:30.7920489Z ##[endgroup]
+2025-06-16T12:44:30.7922905Z Secret source: Actions
+2025-06-16T12:44:30.7923587Z Prepare workflow directory
+2025-06-16T12:44:30.8247176Z Prepare all required actions
+2025-06-16T12:44:30.8285714Z Getting action download info
+2025-06-16T12:44:31.1535181Z ##[group]Download immutable action package 'actions/checkout@v4'
+2025-06-16T12:44:31.1536170Z Version: 4.2.2
+2025-06-16T12:44:31.1537148Z Digest: sha256:ccb2698953eaebd21c7bf6268a94f9c26518a7e38e27e0b83c1fe1ad049819b1
+2025-06-16T12:44:31.1538436Z Source commit SHA: 11bd71901bbe5b1630ceea73d27597364c9af683
+2025-06-16T12:44:31.1539130Z ##[endgroup]
+2025-06-16T12:44:31.2389700Z Download action repository 'actions/jekyll-build-pages@v1' (SHA:44a6e6beabd48582f863aeeb6cb2151cc1716697)
+2025-06-16T12:44:31.4338692Z ##[group]Download immutable action package 'actions/upload-pages-artifact@v3'
+2025-06-16T12:44:31.4339541Z Version: 3.0.1
+2025-06-16T12:44:31.4340300Z Digest: sha256:aa65de5e734350e024ca30fe125144b6260e68160e01349fc79f7e321ec35490
+2025-06-16T12:44:31.4341528Z Source commit SHA: 56afc609e74202658d3ffba0e8f6dda462b719fa
+2025-06-16T12:44:31.4342233Z ##[endgroup]
+2025-06-16T12:44:31.6698063Z Getting action download info
+2025-06-16T12:44:31.8077945Z ##[group]Download immutable action package 'actions/upload-artifact@v4'
+2025-06-16T12:44:31.8078866Z Version: 4.6.2
+2025-06-16T12:44:31.8079687Z Digest: sha256:290722aa3281d5caf23d0acdc3dbeb3424786a1a01a9cc97e72f147225e37c38
+2025-06-16T12:44:31.8080976Z Source commit SHA: ea165f8d65b6e75b540449e92b4886f43607fa02
+2025-06-16T12:44:31.8081753Z ##[endgroup]
+2025-06-16T12:44:31.9405704Z Complete job name: build
+2025-06-16T12:44:31.9873038Z ##[group]Pull down action image 'ghcr.io/actions/jekyll-build-pages:v1.0.13'
+2025-06-16T12:44:31.9929275Z ##[command]/usr/bin/docker pull ghcr.io/actions/jekyll-build-pages:v1.0.13
+2025-06-16T12:44:32.6005370Z v1.0.13: Pulling from actions/jekyll-build-pages
+2025-06-16T12:44:32.6006636Z efc2b5ad9eec: Pulling fs layer
+2025-06-16T12:44:32.6007529Z 165b60d1bb48: Pulling fs layer
+2025-06-16T12:44:32.6008526Z 2a328af1ca3a: Pulling fs layer
+2025-06-16T12:44:32.6009777Z 32b58fa44788: Pulling fs layer
+2025-06-16T12:44:32.6010824Z 590ab93c22d2: Pulling fs layer
+2025-06-16T12:44:32.6011737Z 26ea96c4c14c: Pulling fs layer
+2025-06-16T12:44:32.6012578Z bd7e451dfea1: Pulling fs layer
+2025-06-16T12:44:32.6013428Z c209e9dadc51: Pulling fs layer
+2025-06-16T12:44:32.6014305Z a4925b5c711a: Pulling fs layer
+2025-06-16T12:44:32.6015156Z cd9459784e3c: Pulling fs layer
+2025-06-16T12:44:32.6016066Z 32b58fa44788: Waiting
+2025-06-16T12:44:32.6016855Z 590ab93c22d2: Waiting
+2025-06-16T12:44:32.6017745Z 26ea96c4c14c: Waiting
+2025-06-16T12:44:32.6018546Z bd7e451dfea1: Waiting
+2025-06-16T12:44:32.6019373Z c209e9dadc51: Waiting
+2025-06-16T12:44:32.6020156Z a4925b5c711a: Waiting
+2025-06-16T12:44:32.6021572Z cd9459784e3c: Waiting
+2025-06-16T12:44:32.8087627Z efc2b5ad9eec: Verifying Checksum
+2025-06-16T12:44:32.8089422Z efc2b5ad9eec: Download complete
+2025-06-16T12:44:32.8558287Z 165b60d1bb48: Verifying Checksum
+2025-06-16T12:44:32.8560916Z 165b60d1bb48: Download complete
+2025-06-16T12:44:32.9686940Z 590ab93c22d2: Download complete
+2025-06-16T12:44:33.0475367Z 2a328af1ca3a: Verifying Checksum
+2025-06-16T12:44:33.0477498Z 2a328af1ca3a: Download complete
+2025-06-16T12:44:33.1440973Z bd7e451dfea1: Verifying Checksum
+2025-06-16T12:44:33.1443473Z bd7e451dfea1: Download complete
+2025-06-16T12:44:33.5137599Z 32b58fa44788: Verifying Checksum
+2025-06-16T12:44:33.5138596Z 32b58fa44788: Download complete
+2025-06-16T12:44:33.5788199Z 26ea96c4c14c: Verifying Checksum
+2025-06-16T12:44:33.5789213Z 26ea96c4c14c: Download complete
+2025-06-16T12:44:33.6370328Z cd9459784e3c: Verifying Checksum
+2025-06-16T12:44:33.6371044Z cd9459784e3c: Download complete
+2025-06-16T12:44:33.6646064Z c209e9dadc51: Verifying Checksum
+2025-06-16T12:44:33.9561354Z c209e9dadc51: Download complete
+2025-06-16T12:44:33.9561817Z a4925b5c711a: Verifying Checksum
+2025-06-16T12:44:33.9562242Z a4925b5c711a: Download complete
+2025-06-16T12:44:34.0729639Z efc2b5ad9eec: Pull complete
+2025-06-16T12:44:35.9243095Z 165b60d1bb48: Pull complete
+2025-06-16T12:44:35.9385486Z 2a328af1ca3a: Pull complete
+2025-06-16T12:44:36.8786963Z 32b58fa44788: Pull complete
+2025-06-16T12:44:36.8892344Z 590ab93c22d2: Pull complete
+2025-06-16T12:44:40.9232222Z 26ea96c4c14c: Pull complete
+2025-06-16T12:44:40.9335251Z bd7e451dfea1: Pull complete
+2025-06-16T12:44:42.9316798Z c209e9dadc51: Pull complete
+2025-06-16T12:44:42.9611713Z a4925b5c711a: Pull complete
+2025-06-16T12:44:42.9738116Z cd9459784e3c: Pull complete
+2025-06-16T12:44:42.9776566Z Digest: sha256:6791ebfd912185ed59bfb5fb102664fa872496b79f87ff8b9cfba292a7345041
+2025-06-16T12:44:42.9794439Z Status: Downloaded newer image for ghcr.io/actions/jekyll-build-pages:v1.0.13
+2025-06-16T12:44:42.9804713Z ghcr.io/actions/jekyll-build-pages:v1.0.13
+2025-06-16T12:44:42.9827216Z ##[endgroup]
+2025-06-16T12:44:43.0091190Z ##[group]Run actions/checkout@v4
+2025-06-16T12:44:43.0091798Z with:
+2025-06-16T12:44:43.0091984Z   ref: gh-pages
+2025-06-16T12:44:43.0092188Z   submodules: recursive
+2025-06-16T12:44:43.0092426Z   repository: tretuttle/chameleon-chat-widget
+2025-06-16T12:44:43.0092874Z   token: ***
+2025-06-16T12:44:43.0093056Z   ssh-strict: true
+2025-06-16T12:44:43.0093248Z   ssh-user: git
+2025-06-16T12:44:43.0093446Z   persist-credentials: true
+2025-06-16T12:44:43.0093649Z   clean: true
+2025-06-16T12:44:43.0093851Z   sparse-checkout-cone-mode: true
+2025-06-16T12:44:43.0094093Z   fetch-depth: 1
+2025-06-16T12:44:43.0094281Z   fetch-tags: false
+2025-06-16T12:44:43.0094492Z   show-progress: true
+2025-06-16T12:44:43.0094677Z   lfs: false
+2025-06-16T12:44:43.0094864Z   set-safe-directory: true
+2025-06-16T12:44:43.0095270Z ##[endgroup]
+2025-06-16T12:44:43.1179295Z Syncing repository: tretuttle/chameleon-chat-widget
+2025-06-16T12:44:43.1180860Z ##[group]Getting Git version info
+2025-06-16T12:44:43.1181463Z Working directory is '/home/runner/work/chameleon-chat-widget/chameleon-chat-widget'
+2025-06-16T12:44:43.1182095Z [command]/usr/bin/git version
+2025-06-16T12:44:43.1236669Z git version 2.49.0
+2025-06-16T12:44:43.1262797Z ##[endgroup]
+2025-06-16T12:44:43.1276556Z Temporarily overriding HOME='/home/runner/work/_temp/d7b73f77-9387-4470-a6f6-1b14c34ea1f7' before making global git config changes
+2025-06-16T12:44:43.1289292Z Adding repository directory to the temporary git global config as a safe directory
+2025-06-16T12:44:43.1290262Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/chameleon-chat-widget/chameleon-chat-widget
+2025-06-16T12:44:43.1323341Z Deleting the contents of '/home/runner/work/chameleon-chat-widget/chameleon-chat-widget'
+2025-06-16T12:44:43.1326609Z ##[group]Initializing the repository
+2025-06-16T12:44:43.1330587Z [command]/usr/bin/git init /home/runner/work/chameleon-chat-widget/chameleon-chat-widget
+2025-06-16T12:44:43.1386123Z hint: Using 'master' as the name for the initial branch. This default branch name
+2025-06-16T12:44:43.1386972Z hint: is subject to change. To configure the initial branch name to use in all
+2025-06-16T12:44:43.1387746Z hint: of your new repositories, which will suppress this warning, call:
+2025-06-16T12:44:43.1388325Z hint:
+2025-06-16T12:44:43.1388744Z hint: 	git config --global init.defaultBranch <name>
+2025-06-16T12:44:43.1389179Z hint:
+2025-06-16T12:44:43.1389466Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2025-06-16T12:44:43.1390172Z hint: 'development'. The just-created branch can be renamed via this command:
+2025-06-16T12:44:43.1390934Z hint:
+2025-06-16T12:44:43.1391204Z hint: 	git branch -m <name>
+2025-06-16T12:44:43.1391676Z Initialized empty Git repository in /home/runner/work/chameleon-chat-widget/chameleon-chat-widget/.git/
+2025-06-16T12:44:43.1401443Z [command]/usr/bin/git remote add origin https://github.com/tretuttle/chameleon-chat-widget
+2025-06-16T12:44:43.1433822Z ##[endgroup]
+2025-06-16T12:44:43.1434365Z ##[group]Disabling automatic garbage collection
+2025-06-16T12:44:43.1438095Z [command]/usr/bin/git config --local gc.auto 0
+2025-06-16T12:44:43.1466964Z ##[endgroup]
+2025-06-16T12:44:43.1467561Z ##[group]Setting up auth
+2025-06-16T12:44:43.1475213Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-06-16T12:44:43.1506345Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-06-16T12:44:43.1770581Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-06-16T12:44:43.1801684Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-06-16T12:44:43.2028469Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-06-16T12:44:43.2066525Z ##[endgroup]
+2025-06-16T12:44:43.2067297Z ##[group]Fetching the repository
+2025-06-16T12:44:43.2076708Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin +refs/heads/gh-pages*:refs/remotes/origin/gh-pages* +refs/tags/gh-pages*:refs/tags/gh-pages*
+2025-06-16T12:44:43.4862687Z From https://github.com/tretuttle/chameleon-chat-widget
+2025-06-16T12:44:43.4863518Z  * [new branch]      gh-pages   -> origin/gh-pages
+2025-06-16T12:44:43.4888141Z ##[endgroup]
+2025-06-16T12:44:43.4888742Z ##[group]Determining the checkout info
+2025-06-16T12:44:43.4895654Z [command]/usr/bin/git branch --list --remote origin/gh-pages
+2025-06-16T12:44:43.4919071Z   origin/gh-pages
+2025-06-16T12:44:43.4925774Z ##[endgroup]
+2025-06-16T12:44:43.4930434Z [command]/usr/bin/git sparse-checkout disable
+2025-06-16T12:44:43.4969775Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2025-06-16T12:44:43.4998826Z ##[group]Checking out the ref
+2025-06-16T12:44:43.5003372Z [command]/usr/bin/git checkout --progress --force -B gh-pages refs/remotes/origin/gh-pages
+2025-06-16T12:44:43.5141592Z Switched to a new branch 'gh-pages'
+2025-06-16T12:44:43.5144503Z branch 'gh-pages' set up to track 'origin/gh-pages'.
+2025-06-16T12:44:43.5150528Z ##[endgroup]
+2025-06-16T12:44:43.5151588Z ##[group]Setting up auth for fetching submodules
+2025-06-16T12:44:43.5156621Z [command]/usr/bin/git config --global http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2025-06-16T12:44:43.5193560Z [command]/usr/bin/git config --global --unset-all url.https://github.com/.insteadOf
+2025-06-16T12:44:43.5223868Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf git@github.com:
+2025-06-16T12:44:43.5255635Z [command]/usr/bin/git config --global --add url.https://github.com/.insteadOf org-42724138@github.com:
+2025-06-16T12:44:43.5282984Z ##[endgroup]
+2025-06-16T12:44:43.5283577Z ##[group]Fetching submodules
+2025-06-16T12:44:43.5288459Z [command]/usr/bin/git submodule sync --recursive
+2025-06-16T12:44:43.5533126Z [command]/usr/bin/git -c protocol.version=2 submodule update --init --force --depth=1 --recursive
+2025-06-16T12:44:43.5779653Z [command]/usr/bin/git submodule foreach --recursive git config --local gc.auto 0
+2025-06-16T12:44:43.6021967Z ##[endgroup]
+2025-06-16T12:44:43.6023113Z ##[group]Persisting credentials for submodules
+2025-06-16T12:44:43.6030270Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'url\.https\:\/\/github\.com\/\.insteadOf' && git config --local --unset-all 'url.https://github.com/.insteadOf' || :"
+2025-06-16T12:44:43.6270981Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local 'http.https://github.com/.extraheader' 'AUTHORIZATION: basic ***' && git config --local --show-origin --name-only --get-regexp remote.origin.url"
+2025-06-16T12:44:43.6513369Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'git@github.com:'
+2025-06-16T12:44:43.6762410Z [command]/usr/bin/git submodule foreach --recursive git config --local --add 'url.https://github.com/.insteadOf' 'org-42724138@github.com:'
+2025-06-16T12:44:43.7011828Z ##[endgroup]
+2025-06-16T12:44:43.7050195Z [command]/usr/bin/git log -1 --format=%H
+2025-06-16T12:44:43.7076679Z bc665f47768f6e0815d6750644c481de621080ea
+2025-06-16T12:44:43.7258967Z ##[group]Run actions/jekyll-build-pages@v1
+2025-06-16T12:44:43.7259254Z with:
+2025-06-16T12:44:43.7259412Z   source: .
+2025-06-16T12:44:43.7259582Z   destination: ./_site
+2025-06-16T12:44:43.7259762Z   future: false
+2025-06-16T12:44:43.7259991Z   build_revision: bc665f47768f6e0815d6750644c481de621080ea
+2025-06-16T12:44:43.7260268Z   verbose: true
+2025-06-16T12:44:43.7260581Z   token: ***
+2025-06-16T12:44:43.7260984Z ##[endgroup]
+2025-06-16T12:44:43.7354977Z ##[command]/usr/bin/docker run --name ghcrioactionsjekyllbuildpagesv1013_819d02 --label 975224 --workdir /github/workspace --rm -e "INPUT_SOURCE" -e "INPUT_DESTINATION" -e "INPUT_FUTURE" -e "INPUT_BUILD_REVISION" -e "INPUT_VERBOSE" -e "INPUT_TOKEN" -e "HOME" -e "GITHUB_JOB" -e "GITHUB_REF" -e "GITHUB_SHA" -e "GITHUB_REPOSITORY" -e "GITHUB_REPOSITORY_OWNER" -e "GITHUB_REPOSITORY_OWNER_ID" -e "GITHUB_RUN_ID" -e "GITHUB_RUN_NUMBER" -e "GITHUB_RETENTION_DAYS" -e "GITHUB_RUN_ATTEMPT" -e "GITHUB_ACTOR_ID" -e "GITHUB_ACTOR" -e "GITHUB_WORKFLOW" -e "GITHUB_HEAD_REF" -e "GITHUB_BASE_REF" -e "GITHUB_EVENT_NAME" -e "GITHUB_SERVER_URL" -e "GITHUB_API_URL" -e "GITHUB_GRAPHQL_URL" -e "GITHUB_REF_NAME" -e "GITHUB_REF_PROTECTED" -e "GITHUB_REF_TYPE" -e "GITHUB_WORKFLOW_REF" -e "GITHUB_WORKFLOW_SHA" -e "GITHUB_REPOSITORY_ID" -e "GITHUB_TRIGGERING_ACTOR" -e "GITHUB_WORKSPACE" -e "GITHUB_ACTION" -e "GITHUB_EVENT_PATH" -e "GITHUB_ACTION_REPOSITORY" -e "GITHUB_ACTION_REF" -e "GITHUB_PATH" -e "GITHUB_ENV" -e "GITHUB_STEP_SUMMARY" -e "GITHUB_STATE" -e "GITHUB_OUTPUT" -e "RUNNER_OS" -e "RUNNER_ARCH" -e "RUNNER_NAME" -e "RUNNER_ENVIRONMENT" -e "RUNNER_TOOL_CACHE" -e "RUNNER_TEMP" -e "RUNNER_WORKSPACE" -e "ACTIONS_RUNTIME_URL" -e "ACTIONS_RUNTIME_TOKEN" -e "ACTIONS_CACHE_URL" -e "ACTIONS_ID_TOKEN_REQUEST_URL" -e "ACTIONS_ID_TOKEN_REQUEST_TOKEN" -e "ACTIONS_RESULTS_URL" -e GITHUB_ACTIONS=true -e CI=true -v "/var/run/docker.sock":"/var/run/docker.sock" -v "/home/runner/work/_temp/_github_home":"/github/home" -v "/home/runner/work/_temp/_github_workflow":"/github/workflow" -v "/home/runner/work/_temp/_runner_file_commands":"/github/file_commands" -v "/home/runner/work/chameleon-chat-widget/chameleon-chat-widget":"/github/workspace" ghcr.io/actions/jekyll-build-pages:v1.0.13
+2025-06-16T12:44:44.5357835Z [33mConfiguration file: none[0m
+2025-06-16T12:44:44.6580938Z To use retry middleware with Faraday v2.0+, install `faraday-retry` gem
+2025-06-16T12:44:46.0537979Z   Logging at level: debug
+2025-06-16T12:44:46.0538438Z       GitHub Pages: github-pages v232
+2025-06-16T12:44:46.0539427Z       GitHub Pages: jekyll v3.10.0
+2025-06-16T12:44:46.0539832Z              Theme: jekyll-theme-primer
+2025-06-16T12:44:46.0540373Z       Theme source: /usr/local/bundle/gems/jekyll-theme-primer-0.6.0
+2025-06-16T12:44:46.0541152Z          Requiring: jekyll-github-metadata
+2025-06-16T12:44:46.0541586Z          Requiring: jekyll-seo-tag
+2025-06-16T12:44:46.0541982Z          Requiring: jekyll-coffeescript
+2025-06-16T12:44:46.0542439Z          Requiring: jekyll-commonmark-ghpages
+2025-06-16T12:44:46.0542883Z          Requiring: jekyll-gist
+2025-06-16T12:44:46.0543268Z          Requiring: jekyll-github-metadata
+2025-06-16T12:44:46.0543713Z          Requiring: jekyll-paginate
+2025-06-16T12:44:46.0544061Z          Requiring: jekyll-relative-links
+2025-06-16T12:44:46.0544550Z          Requiring: jekyll-optional-front-matter
+2025-06-16T12:44:46.0544992Z          Requiring: jekyll-readme-index
+2025-06-16T12:44:46.0545382Z          Requiring: jekyll-default-layout
+2025-06-16T12:44:46.0545847Z          Requiring: jekyll-titles-from-headings
+2025-06-16T12:44:46.0546291Z    GitHub Metadata: Initializing...
+2025-06-16T12:44:46.0546688Z             Source: /github/workspace/.
+2025-06-16T12:44:46.0547102Z        Destination: /github/workspace/./_site
+2025-06-16T12:44:46.0547599Z  Incremental build: disabled. Enable with --incremental
+2025-06-16T12:44:46.0548062Z       Generating... 
+2025-06-16T12:44:46.0555332Z         Generating: JekyllOptionalFrontMatter::Generator finished in 5.5403e-05 seconds.
+2025-06-16T12:44:46.0556225Z         Generating: JekyllReadmeIndex::Generator finished in 5.3449e-05 seconds.
+2025-06-16T12:44:46.0556701Z         Generating: Jekyll::Paginate::Pagination finished in 4.898e-06 seconds.
+2025-06-16T12:44:46.0557278Z         Generating: JekyllRelativeLinks::Generator finished in 1.7663e-05 seconds.
+2025-06-16T12:44:46.0557739Z         Generating: JekyllDefaultLayout::Generator finished in 1.0279e-05 seconds.
+2025-06-16T12:44:46.0558378Z         Generating: JekyllTitlesFromHeadings::Generator finished in 6.863e-06 seconds.
+2025-06-16T12:44:46.0558990Z          Rendering: assets/css/style.scss
+2025-06-16T12:44:46.0559447Z   Pre-Render Hooks: assets/css/style.scss
+2025-06-16T12:44:46.0559911Z   Rendering Markup: assets/css/style.scss
+2025-06-16T12:44:46.0560431Z            Writing: /github/workspace/_site/assets/css/style.css
+2025-06-16T12:44:46.0561091Z                     done in 1.124 seconds.
+2025-06-16T12:44:46.0561380Z  Auto-regeneration: disabled. Use --watch to enable.
+2025-06-16T12:44:46.1382832Z ##[group]Run actions/upload-pages-artifact@v3
+2025-06-16T12:44:46.1383121Z with:
+2025-06-16T12:44:46.1383287Z   path: ./_site
+2025-06-16T12:44:46.1383476Z   name: github-pages
+2025-06-16T12:44:46.1383661Z   retention-days: 1
+2025-06-16T12:44:46.1383841Z ##[endgroup]
+2025-06-16T12:44:46.1481815Z ##[group]Run echo ::group::Archive artifact
+2025-06-16T12:44:46.1482163Z [36;1mecho ::group::Archive artifact[0m
+2025-06-16T12:44:46.1482403Z [36;1mtar \[0m
+2025-06-16T12:44:46.1482628Z [36;1m  --dereference --hard-dereference \[0m
+2025-06-16T12:44:46.1482927Z [36;1m  --directory "$INPUT_PATH" \[0m
+2025-06-16T12:44:46.1483193Z [36;1m  -cvf "$RUNNER_TEMP/artifact.tar" \[0m
+2025-06-16T12:44:46.1483442Z [36;1m  --exclude=.git \[0m
+2025-06-16T12:44:46.1483665Z [36;1m  --exclude=.github \[0m
+2025-06-16T12:44:46.1483869Z [36;1m  .[0m
+2025-06-16T12:44:46.1484038Z [36;1mecho ::endgroup::[0m
+2025-06-16T12:44:46.1548516Z shell: /usr/bin/sh -e {0}
+2025-06-16T12:44:46.1548754Z env:
+2025-06-16T12:44:46.1548973Z   INPUT_PATH: ./_site
+2025-06-16T12:44:46.1549169Z ##[endgroup]
+2025-06-16T12:44:46.1631356Z ##[group]Archive artifact
+2025-06-16T12:44:46.1644329Z ./
+2025-06-16T12:44:46.1644604Z ./dist/
+2025-06-16T12:44:46.1644872Z ./dist/robots.txt
+2025-06-16T12:44:46.1645161Z ./dist/assets/
+2025-06-16T12:44:46.1645489Z ./dist/assets/index-BJTSSnf6.css
+2025-06-16T12:44:46.1645932Z ./dist/favicon.ico
+2025-06-16T12:44:46.1646382Z ./dist/lovable-uploads/
+2025-06-16T12:44:46.1646858Z ./dist/lovable-uploads/bd742051-efbe-415d-9b3e-cab63b992d5e.png
+2025-06-16T12:44:46.1647804Z ./dist/lovable-uploads/b12f4efb-0fa0-4019-ba3b-e5cffcf2ef22.png
+2025-06-16T12:44:46.1648460Z ./dist/lovable-uploads/4b9131f2-ab48-4c5a-951f-e24f1806cf8e.png
+2025-06-16T12:44:46.1649104Z ./dist/lovable-uploads/7a9d14cc-e93b-47a3-b3c8-c9ce3563866f.png
+2025-06-16T12:44:46.1649734Z ./dist/lovable-uploads/0381aa48-3ef4-481f-861f-13f55804b552.png
+2025-06-16T12:44:46.1650229Z ./dist/index.html
+2025-06-16T12:44:46.1650536Z ./dist/placeholder.svg
+2025-06-16T12:44:46.1651137Z ./robots.txt
+2025-06-16T12:44:46.1651392Z ./404.html
+2025-06-16T12:44:46.1651655Z ./package-lock.json
+2025-06-16T12:44:46.1653557Z ./assets/
+2025-06-16T12:44:46.1653874Z ./assets/index-BJTSSnf6.css
+2025-06-16T12:44:46.1654358Z ./assets/index-CI6iQSPO.js
+2025-06-16T12:44:46.1657960Z ./assets/index-B1SMrJbG.css
+2025-06-16T12:44:46.1658784Z ./assets/css/
+2025-06-16T12:44:46.1659095Z ./assets/css/style.css
+2025-06-16T12:44:46.1659702Z ./assets/index-BcKqZ9Fy.js
+2025-06-16T12:44:46.1663726Z ./favicon.ico
+2025-06-16T12:44:46.1664019Z ./src/
+2025-06-16T12:44:46.1664280Z ./src/components/
+2025-06-16T12:44:46.1664588Z ./src/components/chat/
+2025-06-16T12:44:46.1664937Z ./src/components/chat/SidebarChat.tsx
+2025-06-16T12:44:46.1665350Z ./src/components/chat/ModalChat.tsx
+2025-06-16T12:44:46.1665765Z ./src/components/chat/HorizontalChat.tsx
+2025-06-16T12:44:46.1666183Z ./src/components/ChatWidget.tsx
+2025-06-16T12:44:46.1666538Z ./src/pages/
+2025-06-16T12:44:46.1666824Z ./src/pages/Index.tsx
+2025-06-16T12:44:46.1667138Z ./src/pages/Widget.tsx
+2025-06-16T12:44:46.1667432Z ./index.html
+2025-06-16T12:44:46.1667708Z ./placeholder.svg
+2025-06-16T12:44:46.1667997Z ./package.json
+2025-06-16T12:44:46.1670013Z ##[endgroup]
+2025-06-16T12:44:46.1736859Z ##[group]Run actions/upload-artifact@v4
+2025-06-16T12:44:46.1737106Z with:
+2025-06-16T12:44:46.1737273Z   name: github-pages
+2025-06-16T12:44:46.1737491Z   path: /home/runner/work/_temp/artifact.tar
+2025-06-16T12:44:46.1737749Z   retention-days: 1
+2025-06-16T12:44:46.1737938Z   if-no-files-found: error
+2025-06-16T12:44:46.1738147Z   compression-level: 6
+2025-06-16T12:44:46.1738330Z   overwrite: false
+2025-06-16T12:44:46.1738512Z   include-hidden-files: false
+2025-06-16T12:44:46.1738721Z ##[endgroup]
+2025-06-16T12:44:46.3877241Z With the provided path, there will be 1 file uploaded
+2025-06-16T12:44:46.3882867Z Artifact name is valid!
+2025-06-16T12:44:46.3884107Z Root directory input is valid!
+2025-06-16T12:44:46.4867897Z Beginning upload of artifact content to blob storage
+2025-06-16T12:44:46.6138334Z Uploaded bytes 535998
+2025-06-16T12:44:46.6301694Z Finished uploading artifact content to blob storage!
+2025-06-16T12:44:46.6305037Z SHA256 digest of uploaded artifact zip is 84e4c2b1d263421204a878e62aac6cfc6ec055fb1f51184756c20f19bc45d027
+2025-06-16T12:44:46.6306839Z Finalizing artifact upload
+2025-06-16T12:44:46.7087288Z Artifact github-pages.zip successfully finalized. Artifact ID 3335904338
+2025-06-16T12:44:46.7088485Z Artifact github-pages has been successfully uploaded! Final size is 535998 bytes. Artifact ID is 3335904338
+2025-06-16T12:44:46.7095853Z Artifact download URL: https://github.com/tretuttle/chameleon-chat-widget/actions/runs/15681170937/artifacts/3335904338
+2025-06-16T12:44:46.7263801Z Post job cleanup.
+2025-06-16T12:44:46.8210484Z [command]/usr/bin/git version
+2025-06-16T12:44:46.8247762Z git version 2.49.0
+2025-06-16T12:44:46.8291686Z Temporarily overriding HOME='/home/runner/work/_temp/7cce3aba-d8fd-4d5e-a539-5259321da621' before making global git config changes
+2025-06-16T12:44:46.8292969Z Adding repository directory to the temporary git global config as a safe directory
+2025-06-16T12:44:46.8298262Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/chameleon-chat-widget/chameleon-chat-widget
+2025-06-16T12:44:46.8335100Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2025-06-16T12:44:46.8368123Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2025-06-16T12:44:46.8591013Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2025-06-16T12:44:46.8611922Z http.https://github.com/.extraheader
+2025-06-16T12:44:46.8624904Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2025-06-16T12:44:46.8656287Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2025-06-16T12:44:46.8979351Z Cleaning up orphan processes

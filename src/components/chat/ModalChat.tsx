@@ -152,7 +152,7 @@ const ModalChat = ({
             </p>
           </div>
 
-          {conversationHistory.filter(msg => msg.text !== 'typing').slice(-10).map(message => (
+          {conversationHistory.filter(msg => msg.text !== 'typing').map(message => (
             <div key={message.id} className={`flex ${message.sender === 'user' ? 'justify-end' : 'justify-start'}`}>
               <div className={`flex items-start space-x-4 max-w-[75%] ${message.sender === 'user' ? 'flex-row-reverse space-x-reverse' : ''}`}>
                 <div className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${

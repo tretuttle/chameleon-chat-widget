@@ -5,13 +5,14 @@ export const vistaFlow: ConversationFlow = {
   start_vista_flow: {
     id: 'start_vista_flow',
     botMessage: [
-      "Excellent! I'll help you troubleshoot your Vista cart.",
+      "I'll help you troubleshoot your Vista cart.",
       "What seems to be the issue with your Vista?"
     ],
+    decorateWithEmpathy: true,
     userOptions: [
-      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_vista_batt_led_gauge" },
+      { text: "My Vista turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vista_battery_troubleshooting" },
       { text: "My Vista will not move", nextStep: "step_for_vista_wont_move" },
-      { text: "I have a different customer service need", nextStep: "contact_agent" }
+      { text: "I have a different customer service need.", nextStep: "contact_agent" }
     ]
   },
   greeting: {

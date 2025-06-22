@@ -1,4 +1,4 @@
-import { FlowType } from '@/hooks/useConversationFlow';
+import { FlowType } from '@/hooks/useChat';
 import * as logger from '@/lib/logger';
 
 export interface ProductInfo {

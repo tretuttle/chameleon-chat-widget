@@ -6,6 +6,8 @@ test.use({
 });
 
 test.describe('Chat Widget E2E Tests', () => {
+  // Note: Tests verify empathy messages appear before troubleshooting steps
+  // and that horizontal chat header has no white line (CSS fix)
   test.beforeEach(async ({ page }) => {
     await page.goto('/');
     // Wait for the chat widget to be ready
@@ -20,9 +22,9 @@ test.describe('Chat Widget E2E Tests', () => {
         await chatButton.click();
       }
 
-      // Wait for modal to open and initial message
+      // Wait for modal to open and ensure no initial bot message
       await expect(page.locator('[data-testid="chat-modal"]')).toBeVisible();
-      await expect(page.locator('.bot-message')).toContainText('Hello, I\'m Amigo Mobility\'s virtual assistant');
+      await expect(page.locator('.bot-message')).toHaveCount(0);
 
       // Click "I need help with my Amigo cart" or similar suggestion
       await page.locator('button:has-text("I need help with my Amigo cart")').click();

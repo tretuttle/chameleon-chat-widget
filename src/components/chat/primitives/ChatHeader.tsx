@@ -28,19 +28,19 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
   showJoinedTime = true
 }) => {
   const getHeaderClasses = () => {
-    const baseClasses = 'flex items-center justify-between border-b border-blue-100 bg-gradient-to-r from-blue-500 via-blue-400 to-blue-600 flex-shrink-0';
+    const baseClasses = 'flex items-center justify-between bg-gradient-to-r from-blue-500 via-blue-400 to-blue-600 flex-shrink-0';
     
     switch (variant) {
       case 'modal':
-        return `${baseClasses} px-6 py-3 rounded-t-2xl`;
+        return `${baseClasses} border-b border-blue-100 px-6 py-3 rounded-t-2xl`;
       case 'sidebar':
-        return `${baseClasses} p-4`;
+        return `${baseClasses} border-b border-blue-100 p-4`;
       case 'horizontal':
         return `${baseClasses} px-4 py-3`;
       case 'minimized':
         return `${baseClasses} px-3 py-2`;
       default:
-        return `${baseClasses} px-6 py-3`;
+        return `${baseClasses} border-b border-blue-100 px-6 py-3`;
     }
   };
 
@@ -51,7 +51,7 @@ const ChatHeader: React.FC<ChatHeaderProps> = ({
       case 'sidebar':
         return 'h-8 object-contain';
       case 'horizontal':
-        return 'h-8 object-contain';
+        return 'h-8 object-contain block leading-none';
       case 'minimized':
         return 'h-6 object-contain';
       default:

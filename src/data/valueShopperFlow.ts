@@ -5,13 +5,14 @@ export const valueShopperFlow: ConversationFlow = {
   start_valueshopper_flow: {
     id: 'start_valueshopper_flow',
     botMessage: [
-      "Perfect! I'll help you troubleshoot your ValueShopper cart.",
+      "I'll help you troubleshoot your ValueShopper cart.",
       "What seems to be the issue with your ValueShopper?"
     ],
+    decorateWithEmpathy: true,
     userOptions: [
-      { text: "My ValueShopper turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_vs_batt_led_gauge" },
+      { text: "My ValueShopper turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_vs_battery_troubleshooting" },
       { text: "My ValueShopper will not move", nextStep: "step_for_vs_wont_move" },
-      { text: "I have a different customer service need", nextStep: "contact_agent" }
+      { text: "I have a different customer service need.", nextStep: "contact_agent" }
     ]
   },
 

@@ -7,6 +7,7 @@ export const conversationFlow: ConversationFlow = {
       "Hello, this is the bot.",
       "What seems to be the issue?"
     ],
+    decorateWithEmpathy: true,
     userOptions: [
       { text: "My Amigo turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_genamigo_battery_troubleshooting" },
       { text: "My Amigo will not move", nextStep: "step_for_genamigo_wont_move" },

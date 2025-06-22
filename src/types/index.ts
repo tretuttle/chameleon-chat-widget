@@ -7,6 +7,7 @@ export interface ConversationStep {
     }>;
     isEndStep?: boolean;
     allowTextInput?: boolean;
+    decorateWithEmpathy?: boolean;
 }
 
 export interface ConversationFlow {

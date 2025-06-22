@@ -1,5 +1,5 @@
 import { useReducer, useCallback } from 'react';
-import { conversationFlow as generalAmigoFlow } from '@/data/conversationFlow';
+import { conversationFlow } from '@/data/conversationFlow';
 import type { ConversationStep, ConversationFlow, ConversationMessage } from '@/types';
 import { smartShopperFlow } from '@/data/smartShopperFlow';
 import { valueShopperFlow } from '@/data/valueShopperFlow';
@@ -16,6 +16,7 @@ export type ChatUIState = 'hidden' | 'horizontal' | 'modal' | 'sidebar';
 
 export interface ChatState {
   uiState: ChatUIState;
+  lastActiveUIState: ChatUIState | null;
   history: ConversationMessage[];
   inputValue: string;
   isTyping: boolean;
@@ -43,18 +44,41 @@ export type ChatAction =
 
 // --- FLOW MAPPING ---
 const flowMap: Record<FlowType, ConversationFlow> = {
-  general: generalAmigoFlow,
+  general: conversationFlow,
   smartShopper: smartShopperFlow,
   valueShopper: valueShopperFlow,
   vista: vistaFlow,
   maxCR: maxCRFlow,
   contactAgent: contactAgentFlow,
-  endConversation: endConversationFlow,
+  endConversation: endConversationFlow
+};
+
+// Empathy message templates
+const empathyTemplates: Record<string, string> = {
+  smartShopper: "Let's get your SmartShopper working properly.",
+  valueShopper: "Let's get your ValueShopper working properly.",
+  vista: "Let's get your Vista working properly.",
+  maxCR: "Let's get your Max CR working properly.",
+  general: "Let's get your Amigo cart working properly."
+};
+
+// Track visited nodes to prevent duplicate empathy messages
+const visitedEmpathyNodes = new Set<string>();
+
+// Helper function to generate empathy message
+const generateEmpathyMessage = (flowType: FlowType): string => {
+  return empathyTemplates[flowType] || empathyTemplates.general;
+};
+
+// Helper function to check if empathy should be shown
+const shouldShowEmpathy = (stepId: string, step: ConversationStep): boolean => {
+  return step.decorateWithEmpathy === true && !visitedEmpathyNodes.has(stepId);
 };
 
 // --- INITIAL STATE ---
 const initialState: ChatState = {
   uiState: 'horizontal',
+  lastActiveUIState: null,
   history: [],
   inputValue: '',
   isTyping: false,
@@ -64,22 +88,27 @@ const initialState: ChatState = {
 };
 
 // --- REDUCER (The Brains of the Operation) ---
-const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
+export const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
   switch (action.type) {
     case 'OPEN_WIDGET':
       return {
         ...state,
-        uiState: 'modal',
-        history: state.history.length === 0
-          ? [{ id: 'init', sender: 'agent', text: "Hello, I'm Amigo Mobility's virtual assistant. To best help you, please provide your product's serial number or select an option below.", timestamp: new Date() }]
-          : state.history,
+        uiState: state.lastActiveUIState || 'modal',
+        history: state.history,
       };
 
     case 'CLOSE_WIDGET':
-      return { ...initialState };
+      return { ...initialState, lastActiveUIState: state.lastActiveUIState };
 
     case 'SET_UI_STATE':
-      return { ...state, uiState: action.payload };
+      return {
+        ...state,
+        uiState: action.payload,
+        lastActiveUIState:
+          action.payload === 'modal' || action.payload === 'sidebar'
+            ? action.payload
+            : state.lastActiveUIState,
+      };
       
     case 'SET_INPUT_VALUE':
       return { ...state, inputValue: action.payload };
@@ -373,10 +402,42 @@ export const useChat = () => {
 
   const selectOption = useCallback((text: string, nextStepId: string) => {
     dispatch({ type: 'SELECT_OPTION', payload: { text } });
-    setTimeout(() => {
-      dispatch({ type: 'PROCESS_BOT_RESPONSE', payload: { nextStepId } });
-    }, 1200);
-  }, []);
+    
+    // Check if target step needs empathy decoration
+    const { activeFlow } = state;
+    let targetStep = activeFlow?.[nextStepId];
+    let currentFlow = activeFlow;
+    
+    // Handle cross-flow navigation
+    const crossFlowMap: Record<string, FlowType> = {
+      'start_smartshopper_flow': 'smartShopper',
+      'start_valueshopper_flow': 'valueShopper',
+      'start_vista_flow': 'vista',
+      'start_maxcr_flow': 'maxCR'
+    };
+    
+    if (crossFlowMap[nextStepId]) {
+      const newFlowType = crossFlowMap[nextStepId];
+      currentFlow = flowMap[newFlowType];
+      targetStep = currentFlow[nextStepId];
+    }
+    
+    if (targetStep && shouldShowEmpathy(nextStepId, targetStep)) {
+      // First dispatch empathy message
+      const empathyText = generateEmpathyMessage(crossFlowMap[nextStepId] || 'general');
+      dispatch({ type: 'ADD_MESSAGE', payload: { text: empathyText, sender: 'agent' } });
+      visitedEmpathyNodes.add(nextStepId);
+      
+      // Set typing indicator and delay
+      setTimeout(() => {
+        dispatch({ type: 'PROCESS_BOT_RESPONSE', payload: { nextStepId } });
+      }, 1200);
+    } else {
+      setTimeout(() => {
+        dispatch({ type: 'PROCESS_BOT_RESPONSE', payload: { nextStepId } });
+      }, 1200);
+    }
+  }, [state]);
   
   const startFlow = useCallback((flowType: FlowType, initialMessage?: string) => {
     dispatch({ type: 'START_FLOW', payload: { flowType, initialMessage } });
@@ -384,9 +445,34 @@ export const useChat = () => {
   
   const startFlowFromSuggestion = useCallback((flowType: FlowType, text: string) => {
     dispatch({ type: 'START_FLOW_FROM_SUGGESTION', payload: { text } });
-    setTimeout(() => {
-      dispatch({ type: 'PROCESS_SUGGESTION_RESPONSE', payload: { flowType, text } });
-    }, 1200);
+    
+    // Check if the starting step needs empathy decoration
+    const flow = flowMap[flowType];
+    let startStepId: string;
+    if (flowType === 'general') {
+      startStepId = 'start_repair_flow';
+    } else if (flowType === 'contactAgent') {
+      startStepId = 'contact_agent';
+    } else {
+      startStepId = 'greeting';
+    }
+    
+    const startStep = flow?.[startStepId];
+    if (startStep && shouldShowEmpathy(startStepId, startStep)) {
+      // First dispatch empathy message
+      const empathyText = generateEmpathyMessage(flowType);
+      dispatch({ type: 'ADD_MESSAGE', payload: { text: empathyText, sender: 'agent' } });
+      visitedEmpathyNodes.add(startStepId);
+      
+      // Set typing indicator and delay
+      setTimeout(() => {
+        dispatch({ type: 'PROCESS_SUGGESTION_RESPONSE', payload: { flowType, text } });
+      }, 1200);
+    } else {
+      setTimeout(() => {
+        dispatch({ type: 'PROCESS_SUGGESTION_RESPONSE', payload: { flowType, text } });
+      }, 1200);
+    }
   }, []);
 
   return {

@@ -5,9 +5,10 @@ export const maxCRFlow: ConversationFlow = {
   start_maxcr_flow: {
     id: 'start_maxcr_flow',
     botMessage: [
-      "Great choice! I'll help you troubleshoot your Max CR cart.",
+      "I'll help you troubleshoot your Max CR cart.",
       "What seems to be the issue with your Max CR?"
     ],
+    decorateWithEmpathy: true,
     userOptions: [
       { text: "My Max CR turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_max_cr_battery_troubleshooting_info" },
       { text: "My Max CR will not move", nextStep: "step_for_max_cr_wont_move_info" },

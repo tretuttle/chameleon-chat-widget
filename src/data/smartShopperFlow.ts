@@ -5,9 +5,10 @@ export const smartShopperFlow: ConversationFlow = {
   start_smartshopper_flow: {
     id: 'start_smartshopper_flow',
     botMessage: [
-      "Great! I'll help you troubleshoot your SmartShopper cart.",
+      "I'll help you troubleshoot your SmartShopper cart.",
       "What seems to be the issue with your SmartShopper?"
     ],
+    decorateWithEmpathy: true,
     userOptions: [
       { text: "My SmartShopper turns on, but the charger will not turn on or the batteries do not hold a charge", nextStep: "step_for_ss_battery_troubleshooting_info" },
       { text: "My SmartShopper will not move", nextStep: "step_for_ss_wont_move" },
