@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 /**
  * Custom hook that provides a ref and auto-scroll functionality for chat messages
@@ -6,22 +6,22 @@ import { useEffect, useRef } from 'react';
  * @returns Object containing the ref to attach to the scroll target element
  */
 export const useScrollToBottom = <T extends HTMLElement = HTMLDivElement>(
-  dependencies: any[] = []
+	dependencies = [],
 ) => {
-  const scrollRef = useRef<T>(null);
+	const scrollRef = useRef<T>(null);
 
-  const scrollToBottom = () => {
-    scrollRef.current?.scrollIntoView({ behavior: "smooth" });
-  };
+	const scrollToBottom = () => {
+		scrollRef.current?.scrollIntoView({ behavior: "smooth" });
+	};
 
-  useEffect(() => {
-    scrollToBottom();
-  }, dependencies);
+	useEffect(() => {
+		scrollToBottom();
+	}, dependencies);
 
-  return {
-    scrollRef,
-    scrollToBottom
-  };
+	return {
+		scrollRef,
+		scrollToBottom,
+	};
 };
 
 export default useScrollToBottom;
