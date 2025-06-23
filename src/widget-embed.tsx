@@ -1,50 +1,48 @@
-import React from 'react';
-import { createRoot } from 'react-dom/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import ChatWidget from './components/ChatWidget';
-import './index.css';
-import './widget-embed.css';
-import * as logger from './lib/logger';
-
-// Create query client for the widget
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false,
-    },
-  },
-});
-
-// Widget component with providers
-const AmigoWidget = () => {
-  return (
-    <QueryClientProvider client={queryClient}>
-      <ChatWidget />
-    </QueryClientProvider>
-  );
-};
+import React from "react";
+import { createRoot } from "react-dom/client";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import ChatWidget from "./components/ChatWidget";
+import "./index.css";
+// import "./widget-embed.css";
+import * as logger from "./lib/logger";
 
 // Global widget interface
 interface WidgetConfig {
-  containerId?: string;
-  theme?: 'light' | 'dark';
-  position?: 'bottom-right' | 'bottom-left' | 'top-right' | 'top-left';
+	containerId?: string;
+	theme?: "light" | "dark";
+	position?: "bottom-right" | "bottom-left" | "top-right" | "top-left";
 }
 
-let widgetRoot: any = null;
+// Widget component with providers
+function AmigoWidgetComponent() {
+	const queryClient = new QueryClient({
+		defaultOptions: {
+			queries: {
+				retry: 1,
+				refetchOnWindowFocus: false,
+			},
+		},
+	});
+	return (
+		<QueryClientProvider client={queryClient}>
+			<ChatWidget />
+		</QueryClientProvider>
+	);
+}
+
+let widgetRoot: ReturnType<typeof createRoot> | null = null;
 
 // Widget initialization function
-const initWidget = (config: WidgetConfig = {}) => {
-  try {
-    const { containerId = 'amigo-widget-container' } = config;
-    
-    // Create container if it doesn't exist
-    let container = document.getElementById(containerId);
-    if (!container) {
-      container = document.createElement('div');
-      container.id = containerId;
-      container.style.cssText = `
+export function initWidget(config: WidgetConfig = {}) {
+	try {
+		const { containerId = "amigo-widget-container" } = config;
+
+		// Create container if it doesn't exist
+		let container = document.getElementById(containerId);
+		if (!container) {
+			container = document.createElement("div");
+			container.id = containerId;
+			container.style.cssText = `
         position: fixed !important;
         top: 0 !important;
         left: 0 !important;
@@ -54,62 +52,71 @@ const initWidget = (config: WidgetConfig = {}) => {
         z-index: 999999 !important;
         font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif !important;
       `;
-      document.body.appendChild(container);
-    }
+			document.body.appendChild(container);
+		}
 
-    // Mount the widget
-    if (!widgetRoot) {
-      widgetRoot = createRoot(container);
-      widgetRoot.render(<AmigoWidget />);
-    }
-    
-    logger.log('AmigoWidget initialized successfully');
-  } catch (error) {
-    logger.error('Error initializing AmigoWidget:', error);
-  }
-};
+		// Mount the widget
+		if (!widgetRoot) {
+			// const queryClient = new QueryClient({
+			// 	defaultOptions: {
+			// 		queries: {
+			// 			retry: 1,
+			// 			refetchOnWindowFocus: false,
+			// 		},
+			// 	},
+			// });
+
+			widgetRoot = createRoot(container);
+			widgetRoot.render(<AmigoWidgetComponent />);
+			// widgetRoot.render(
+			// 	<React.StrictMode>
+			// 		<QueryClientProvider client={queryClient}>
+			// 			<ChatWidget />
+			// 		</QueryClientProvider>
+			// 	</React.StrictMode>,
+			// );
+		}
+
+		logger.log("AmigoWidgetComponent initialized successfully");
+	} catch (error) {
+		logger.error("Error initializing AmigoWidgetComponent:", error);
+	}
+}
 
 // Widget destruction function
-const destroyWidget = () => {
-  try {
-    if (widgetRoot) {
-      widgetRoot.unmount();
-      widgetRoot = null;
-    }
-    
-    const container = document.getElementById('amigo-widget-container');
-    if (container) {
-      container.remove();
-    }
-    
-    logger.log('AmigoWidget destroyed successfully');
-  } catch (error) {
-    logger.error('Error destroying AmigoWidget:', error);
-  }
-};
+export function destroyWidget() {
+	try {
+		if (widgetRoot) {
+			widgetRoot.unmount();
+			widgetRoot = null;
+		}
 
-// Create the global widget object
-const AmigoWidgetGlobal = {
-  init: initWidget,
-  destroy: destroyWidget,
-  version: '1.0.0'
-};
+		const container = document.getElementById("amigo-widget-container");
+		if (container) {
+			container.remove();
+		}
 
-// Expose global widget object
-if (typeof window !== 'undefined') {
-  (window as any).AmigoWidget = AmigoWidgetGlobal;
+		logger.log("AmigoWidgetComponent destroyed successfully");
+	} catch (error) {
+		logger.error("Error destroying AmigoWidgetComponent:", error);
+	}
+}
+export const version = "1.0.0";
+
+if (typeof window !== "undefined") {
+	window.AmigoWidget = {
+		initWidget,
+		destroyWidget,
+		version,
+	};
 }
 
-// Auto-initialize if data attribute is present
-if (typeof document !== 'undefined') {
-  document.addEventListener('DOMContentLoaded', () => {
-    const autoInit = document.querySelector('[data-amigo-widget="auto"]');
-    if (autoInit) {
-      initWidget();
-    }
-  });
+declare global {
+	interface Window {
+		AmigoWidget: {
+			initWidget: typeof initWidget;
+			destroyWidget: typeof destroyWidget;
+			version: string;
+		};
+	}
 }
-
-// Export for module usage
-export { AmigoWidget, initWidget, destroyWidget };
-export default AmigoWidgetGlobal;
