@@ -21,27 +21,27 @@ interface TestResult {
   executionTime: number;
 }
 
-describe('Conversation Paths Integration Tests', () => {
-  let allPaths: ConversationPath[][] = [];
-  let testResults: TestResult[] = [];
+// Build conversation graph and paths at module level
+console.log('Building conversation graph and enumerating paths...');
+const startTime = Date.now();
+const graph = buildCompleteGraph();
+const allPaths = enumeratePaths(graph);
+const buildTime = Date.now() - startTime;
+console.log(`Graph built and paths enumerated in ${buildTime}ms`);
+console.log(`Total paths to test: ${allPaths.length}`);
 
-  beforeAll(async () => {
-    console.log('Building conversation graph and enumerating paths...');
-    const startTime = Date.now();
-    
-    const graph = buildCompleteGraph();
-    allPaths = enumeratePaths(graph);
-    
-    const buildTime = Date.now() - startTime;
-    console.log(`Graph built and paths enumerated in ${buildTime}ms`);
-    console.log(`Total paths to test: ${allPaths.length}`);
-    
-    // Log some sample paths for debugging
-    console.log('\nSample paths:');
-    allPaths.slice(0, 3).forEach((path, index) => {
-      console.log(`Path ${index + 1}: ${getPathDescription(path)}`);
-    });
-  });
+// Log some sample paths for debugging
+console.log('\nSample paths:');
+allPaths.slice(0, 3).forEach((path, index) => {
+  console.log(`Path ${index + 1}: ${getPathDescription(path)}`);
+});
+
+describe('Conversation Paths Integration Tests', () => {
+  let testResults: TestResult[] = [];
+  
+  console.log(`Starting integration tests for ${allPaths.length} conversation paths...`);
+  console.log(`Estimated completion time: ${Math.ceil(allPaths.length * 10 / 1000)} seconds`);
+  console.log(`Progress will be shown every 50 tests\n`);
 
   afterAll(() => {
     // Generate comprehensive test summary
@@ -91,6 +91,14 @@ describe('Conversation Paths Integration Tests', () => {
     'should successfully execute conversation path $index',
     async ({ path, index }) => {
       const startTime = Date.now();
+      
+      // Progress logging
+      if (index % 50 === 0 || index < 10) {
+        const progress = ((index / allPaths.length) * 100).toFixed(1);
+        console.log(`\nTesting path ${index + 1}/${allPaths.length} (${progress}%)`);
+        console.log(`Path: ${getPathDescription(path).substring(0, 100)}${getPathDescription(path).length > 100 ? '...' : ''}`);
+      }
+      
       let testResult: TestResult = {
         pathIndex: index,
         pathDescription: getPathDescription(path),
@@ -164,8 +172,7 @@ describe('Conversation Paths Integration Tests', () => {
                        pathStep.condition?.includes('valueShopper') ? 'ValueShopper' :
                        pathStep.condition?.includes('vista') ? 'Vista' :
                        pathStep.condition?.includes('maxCR') ? 'Max CR' : 'SmartShopper',
-                serialNumber: 'AMI1234567',
-                warrantyStatus: 'Active'
+                serialNumber: 'AMI1234567'
               };
               
               const flowType: FlowType = pathStep.condition?.includes('smartShopper') ? 'smartShopper' :
@@ -242,11 +249,23 @@ describe('Conversation Paths Integration Tests', () => {
       } finally {
         testResult.executionTime = Date.now() - startTime;
         testResults.push(testResult);
+        
+        // Log completion and batch progress
+        if (index % 50 === 49 || index === allPaths.length - 1) {
+          const completed = testResults.length;
+          const successful = testResults.filter(r => r.success).length;
+          const failed = testResults.filter(r => !r.success).length;
+          const avgTime = testResults.reduce((sum, r) => sum + r.executionTime, 0) / testResults.length;
+          console.log(`Batch complete: ${successful} passed, ${failed} failed (avg: ${avgTime.toFixed(0)}ms per test)`);
+        }
       }
 
       // Assert the test passed
       if (!testResult.success) {
+        console.log(`FAILED - Path ${index + 1} failed: ${testResult.error}`);
         throw new Error(`Path execution failed: ${testResult.error}`);
+      } else if (index % 50 === 0 || index < 10) {
+        console.log(`PASSED - Path ${index + 1} passed (${testResult.executionTime}ms)`);
       }
     }
   );
@@ -318,8 +337,7 @@ describe('Conversation Paths Edge Cases', () => {
     // Test successful lookup
     const mockProductInfo: ProductInfo = {
       model: 'SmartShopper',
-      serialNumber: 'AMI1234567',
-      warrantyStatus: 'Active'
+      serialNumber: 'AMI1234567'
     };
 
     const successResult = chatReducer(initialState, {

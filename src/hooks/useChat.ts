@@ -64,7 +64,7 @@ const initialState: ChatState = {
 };
 
 // --- REDUCER (The Brains of the Operation) ---
-const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
+export const chatReducer = (state: ChatState, action: ChatAction): ChatState => {
   switch (action.type) {
     case 'OPEN_WIDGET':
       return {

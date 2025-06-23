@@ -1,5 +1,13 @@
 import { vi, beforeEach, afterEach } from 'vitest'
 import '@testing-library/jest-dom'
+// Force console output to flush immediately for real-time streaming
+const originalLog = console.log;
+console.log = (...args) => {
+  originalLog(...args);
+  if (typeof process !== 'undefined' && process.stdout) {
+    process.stdout.write('');
+  }
+};
 
 // Mock window.confirm
 Object.defineProperty(window, 'confirm', {
