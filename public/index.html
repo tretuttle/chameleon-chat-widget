@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Document</title>
+	</head>
+	<body>
+		<button
+			onclick="window.AmigoWidget.initWidget()"
+			data-amigo-widget="auto"
+		>
+			Init
+		</button>
+
+		<!-- <iframe src="https://chat.myamigo.com/"> </iframe> -->
+		<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+		<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+		<script src="./amigo-widget.umd.js" data-amigo-widget="auto"></script>
+		<script>
+			// Initialize when page is ready
+			document.addEventListener("DOMContentLoaded", function () {
+				console.log(
+					"Page loaded, AmigoWidget available:",
+					typeof AmigoWidget,
+					window.AmigoWidget,
+				);
+
+				// AmigoWidget.init();
+			});
+		</script>
+	</body>
+</html>
